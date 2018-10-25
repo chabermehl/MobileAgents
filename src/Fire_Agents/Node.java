@@ -53,4 +53,8 @@ public class Node {
     private void setState(String newState) {
         this.state = newState;
     }
+
+    private LinkedList<String> getNeighbors() {
+        return this.neighbors;
+    }
 }
