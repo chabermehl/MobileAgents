@@ -45,4 +45,8 @@ public class Node {
     private int getY() {
         return this.y;
     }
+
+    private String getState() {
+        return this.state;
+    }
 }
