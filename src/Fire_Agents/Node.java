@@ -12,6 +12,11 @@ public class Node {
     private boolean hasAgent;
 
     /**
+     * added so we can extend node on our Homebase
+     */
+    public Node() {}
+
+    /**
      * creates a node with a position, initialized states and that nodes neighbors
      * @param name name of the node(A, B, C, etc.)
      * @param x x-coordinate for node position
