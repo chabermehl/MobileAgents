@@ -49,4 +49,8 @@ public class Node {
     private String getState() {
         return this.state;
     }
+
+    private void setState(String newState) {
+        this.state = newState;
+    }
 }
