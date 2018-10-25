@@ -61,4 +61,8 @@ public class Node {
     private boolean getHasAgent() {
         return this.hasAgent;
     }
+
+    private void setHasAgent(boolean newHasAgent) {
+        this.hasAgent = newHasAgent;
+    }
 }
