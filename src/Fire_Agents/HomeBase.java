@@ -10,4 +10,8 @@ should we make a node interface instead?
  */
 
 public class HomeBase extends Node {
+
+    public HomeBase() {
+        super();
+    }
 }
