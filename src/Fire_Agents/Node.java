@@ -34,34 +34,71 @@ public class Node {
         this.hasAgent = hasAgent;
     }
 
+    /**
+     * gets the name of the the node
+     * @return name of the node
+     */
     private String getName() {
         return this.name;
     }
 
+    /**
+     * gets the x-coordinate of the node
+     * @return nodes x-coordinate
+     */
     private int getX() {
         return this.x;
     }
 
+    /**
+     * gets the y-coordinate of the node
+     * @return nodes y-coordinate
+     */
     private int getY() {
         return this.y;
     }
 
+    /**
+     * gets the state of the node
+     * @return node state
+     */
     private String getState() {
         return this.state;
     }
 
+    /**
+     * sets the state of the node
+     * @param newState nodes new state
+     *                 alive
+     *                 hot
+     *                 dead
+     */
     private void setState(String newState) {
         this.state = newState;
     }
 
+    /**
+     * gets the list of neighbors the node has
+     * @return neighbor list
+     */
     private LinkedList<String> getNeighbors() {
         return this.neighbors;
     }
 
+    /**
+     * says whether there is an agent on the node or not
+     * @return boolean representing the state
+     */
     private boolean getHasAgent() {
         return this.hasAgent;
     }
 
+    /**
+     * sets the agent state on the node
+     * @param newHasAgent nodes agent state
+     *                    True
+     *                    False
+     */
     private void setHasAgent(boolean newHasAgent) {
         this.hasAgent = newHasAgent;
     }
