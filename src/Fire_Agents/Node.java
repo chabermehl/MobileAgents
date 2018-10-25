@@ -42,4 +42,7 @@ public class Node {
         return this.x;
     }
 
+    private int getY() {
+        return this.y;
+    }
 }
