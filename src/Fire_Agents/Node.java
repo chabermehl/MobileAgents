@@ -33,4 +33,9 @@ public class Node {
         this.neighbors = neighbors;
         this.hasAgent = hasAgent;
     }
+
+    private String getName() {
+        return this.name;
+    }
+
 }
