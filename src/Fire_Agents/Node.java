@@ -57,4 +57,8 @@ public class Node {
     private LinkedList<String> getNeighbors() {
         return this.neighbors;
     }
+
+    private boolean getHasAgent() {
+        return this.hasAgent;
+    }
 }
