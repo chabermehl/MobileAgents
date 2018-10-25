@@ -38,4 +38,8 @@ public class Node {
         return this.name;
     }
 
+    private int getX() {
+        return this.x;
+    }
+
 }
