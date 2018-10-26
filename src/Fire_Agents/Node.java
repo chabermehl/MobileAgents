@@ -1,8 +1,8 @@
 package Fire_Agents;
-
 import java.util.LinkedList;
+import java.util.concurrent.BlockingQueue;
 
-public class Node {
+public class Node implements Runnable {
 
     enum State
     {
@@ -18,6 +18,7 @@ public class Node {
     private State state;
     private LinkedList<String> neighbors;
     private Agent agent;
+    BlockingQueue<Message> messageQueue;
 
     // Static variable used for giving nodes unique names
     private static int nodeCount = 0;
@@ -42,6 +43,30 @@ public class Node {
         this.state = state;
         this.neighbors = neighbors;
         this.agent = null;
+    }
+
+
+    @Override
+    public void run() {
+
+        while (true) {
+            try {
+                processMessage(messageQueue.take());
+            } catch (InterruptedException e) {
+                System.out.println(this.name + "'s messaging thread was interrupted.");
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    /**
+     * Process the message and
+     * @param message
+     */
+    private void processMessage(Message message)
+    {
+
     }
 
     /**
