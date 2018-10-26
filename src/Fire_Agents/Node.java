@@ -1,6 +1,8 @@
 package Fire_Agents;
 import java.util.LinkedList;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 public class Node implements Runnable {
 
@@ -12,13 +14,13 @@ public class Node implements Runnable {
     }
 
     //initialized variables for constructor
-    private String name;
-    private int x;
-    private int y;
-    private State state;
-    private LinkedList<String> neighbors;
-    private Agent agent;
-    BlockingQueue<Message> messageQueue;
+    private String name = "";
+    private int x = 0;
+    private int y = 0;
+    private State state = State.SAFE;
+    private LinkedList<String> neighbors = null;
+    private Agent agent = null;
+    private LinkedBlockingQueue<Message> messageQueue;
 
     // Static variable used for giving nodes unique names
     private static int nodeCount = 0;
@@ -26,7 +28,9 @@ public class Node implements Runnable {
     /**
      * added so we can extend node on our Homebase
      */
-    public Node() {}
+    public Node()
+    {
+    }
 
     /**
      * creates a node with a position, initialized states and that nodes neighbors
@@ -43,6 +47,7 @@ public class Node implements Runnable {
         this.state = state;
         this.neighbors = neighbors;
         this.agent = null;
+        messageQueue = new LinkedBlockingQueue<>();
     }
 
 
@@ -52,6 +57,7 @@ public class Node implements Runnable {
         while (true) {
             try {
                 processMessage(messageQueue.take());
+                System.out.println(name + " processed a message");
             } catch (InterruptedException e) {
                 System.out.println(this.name + "'s messaging thread was interrupted.");
                 e.printStackTrace();
@@ -62,11 +68,29 @@ public class Node implements Runnable {
 
     /**
      * Process the message and
-     * @param message
+     * @param message to process
      */
     private void processMessage(Message message)
     {
+        //TODO: Perform different actions depending on message recieved
+    }
 
+    /**
+     * Send a message to a node
+     * @param message to send
+     * @param node to send message to
+     */
+    public void sendMessage(Message message, Node node)
+    {
+        node.recieveMessage(message);
+    }
+
+    public void recieveMessage(Message message)
+    {
+        if(message != null)
+        {
+            messageQueue.add(message);
+        }
     }
 
     /**
