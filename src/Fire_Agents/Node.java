@@ -3,13 +3,24 @@ package Fire_Agents;
 import java.util.LinkedList;
 
 public class Node {
+
+    enum State
+    {
+        FIRE,
+        DANGER,
+        SAFE
+    }
+
     //initialized variables for constructor
     private String name;
     private int x;
     private int y;
-    private String state;
+    private State state;
     private LinkedList<String> neighbors;
-    private boolean hasAgent;
+    private Agent agent;
+
+    // Static variable used for giving nodes unique names
+    private static int nodeCount = 0;
 
     /**
      * added so we can extend node on our Homebase
@@ -18,20 +29,19 @@ public class Node {
 
     /**
      * creates a node with a position, initialized states and that nodes neighbors
-     * @param name name of the node(A, B, C, etc.)
      * @param x x-coordinate for node position
      * @param y y-coordinate for node position
      * @param state alive, hot, dead
      * @param neighbors list of neighboring nodes
-     * @param hasAgent boolean to say if there is an agent on the node
      */
-    public Node(String name, int x, int y, String state, LinkedList<String> neighbors, boolean hasAgent) {
-        this.name = name;
+    public Node(int x, int y, State state, LinkedList<String> neighbors) {
+        nodeCount++;
+        this.name = "Node_" + nodeCount;
         this.x = x;
         this.y = y;
         this.state = state;
         this.neighbors = neighbors;
-        this.hasAgent = hasAgent;
+        this.agent = null;
     }
 
     /**
@@ -62,7 +72,7 @@ public class Node {
      * gets the state of the node
      * @return node state
      */
-    private String getState() {
+    private State getState() {
         return this.state;
     }
 
@@ -73,7 +83,7 @@ public class Node {
      *                 hot
      *                 dead
      */
-    private void setState(String newState) {
+    private void setState(State newState) {
         this.state = newState;
     }
 
@@ -89,17 +99,17 @@ public class Node {
      * says whether there is an agent on the node or not
      * @return boolean representing the state
      */
-    private boolean getHasAgent() {
-        return this.hasAgent;
+    private boolean hasAgent() {
+        return agent == null;
     }
 
     /**
-     * sets the agent state on the node
-     * @param newHasAgent nodes agent state
+     * sets the agent on the node
+     * @param agent nodes agent state
      *                    True
      *                    False
      */
-    private void setHasAgent(boolean newHasAgent) {
-        this.hasAgent = newHasAgent;
+    private void setAgent(Agent agent) {
+        this.agent = agent;
     }
 }
