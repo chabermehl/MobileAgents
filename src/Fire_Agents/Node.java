@@ -4,7 +4,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-public class Node implements Runnable {
+public class Node implements Runnable, MessageSenderReciever {
 
     enum State
     {
@@ -18,7 +18,7 @@ public class Node implements Runnable {
     private int x = 0;
     private int y = 0;
     private State state = State.SAFE;
-    private LinkedList<String> neighbors = null;
+    private LinkedList<Node> neighbors = new LinkedList<>();
     private Agent agent = null;
     private LinkedBlockingQueue<Message> messageQueue;
 
@@ -39,7 +39,7 @@ public class Node implements Runnable {
      * @param state alive, hot, dead
      * @param neighbors list of neighboring nodes
      */
-    public Node(int x, int y, State state, LinkedList<String> neighbors) {
+    public Node(int x, int y, State state, LinkedList<Node> neighbors) {
         nodeCount++;
         this.name = "Node_" + nodeCount;
         this.x = x;
@@ -57,7 +57,6 @@ public class Node implements Runnable {
         while (true) {
             try {
                 processMessage(messageQueue.take());
-                System.out.println(name + " processed a message");
             } catch (InterruptedException e) {
                 System.out.println(this.name + "'s messaging thread was interrupted.");
                 e.printStackTrace();
@@ -66,23 +65,67 @@ public class Node implements Runnable {
 
     }
 
+    public boolean addNeighbor(Node neighbor)
+    {
+        // The nodes should add each other
+        if(!neighbors.contains(neighbor))
+        {
+            neighbors.add(neighbor);
+
+            // Have the neighbor do the same
+            if(!neighbor.neighbors.contains(this))
+            {
+                neighbor.neighbors.add(this);
+            }
+            return true;
+        }
+        return false;
+    }
+
     /**
-     * Process the message and
+     * Process the message and perform an action depending on the type of message recieved
      * @param message to process
      */
-    private void processMessage(Message message)
+    public void processMessage(Message message)
     {
-        //TODO: Perform different actions depending on message recieved
+        if(state == State.FIRE)
+        {
+            // Dead nodes can't communicate. Return
+            return;
+        }
+
+        System.out.println(name + " processing a message of type " + message.getMessageType().toString());
+
+        switch(message.getMessageType())
+        {
+            case NODE_IN_DANGER:
+                System.out.println("A neighbor has turned yellow");
+                break;
+
+            case NODE_DIED:
+                // Set state to "in danger"
+                System.out.println("A neighbor has turned red. Setting state to yellow");
+                setState(State.DANGER);
+                break;
+
+            case CREATE_AGENT:
+                // Forward the message to nodes that are close to home base
+                System.out.println(("An agent is needing to be created"));
+
+            case TRAVERSE_AGENT:
+                // Agent hasn't reached danger zone unless this node is yellow
+        }
+
     }
 
     /**
      * Send a message to a node
      * @param message to send
-     * @param node to send message to
+     * @param receiver to send message to
      */
-    public void sendMessage(Message message, Node node)
+    public void sendMessage(Message message, MessageSenderReciever receiver)
     {
-        node.recieveMessage(message);
+        receiver.recieveMessage(message);
     }
 
     public void recieveMessage(Message message)
@@ -132,15 +175,33 @@ public class Node implements Runnable {
      *                 hot
      *                 dead
      */
-    private void setState(State newState) {
+    public void setState(State newState) {
         this.state = newState;
+        Message.MessageType messageTypeToSend = null;
+
+        switch(state)
+        {
+            case FIRE:
+                messageTypeToSend = Message.MessageType.NODE_DIED;
+                break;
+
+            case DANGER:
+                messageTypeToSend = Message.MessageType.NODE_IN_DANGER;
+
+        }
+
+        // Send a message based on what the new state is
+        for(Node n : neighbors)
+        {
+            sendMessage(new Message(messageTypeToSend), n);
+        }
     }
 
     /**
      * gets the list of neighbors the node has
      * @return neighbor list
      */
-    private LinkedList<String> getNeighbors() {
+    private LinkedList<Node> getNeighbors() {
         return this.neighbors;
     }
 

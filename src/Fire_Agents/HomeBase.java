@@ -9,9 +9,24 @@ or are we better off creating a home base node?
 should we make a node interface instead?
  */
 
+import java.util.LinkedList;
+
 public class HomeBase extends Node {
 
     public HomeBase() {
         super();
     }
+
+    private void createAgent()
+    {
+        agentsCreated.add(new Agent(this));
+    }
+
+    @Override
+    public void processMessage(Message message)
+    {
+
+    }
+
+    private LinkedList<Agent> agentsCreated = new LinkedList<>();
 }
