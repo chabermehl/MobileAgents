@@ -1,6 +1,6 @@
 package Fire_Agents;
 
-public class Agent implements MessageSenderReciever {
+public class Agent extends MessageProcessor implements Runnable {
 
     private String name;
     private Node currentNode;
@@ -24,17 +24,21 @@ public class Agent implements MessageSenderReciever {
     }
 
     @Override
+    public void run() {
+        while (true) {
+            try {
+                processMessage(getNextMessage());
+            } catch (InterruptedException e) {
+                System.out.println(this.name + "'s messaging thread was interrupted.");
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    @Override
     public void processMessage(Message message) {
 
     }
 
-    @Override
-    public void sendMessage(Message message, MessageSenderReciever receiver) {
-
-    }
-
-    @Override
-    public void recieveMessage(Message message) {
-
-    }
 }

@@ -176,6 +176,11 @@ public class Node implements Runnable, MessageSenderReciever {
      *                 dead
      */
     public void setState(State newState) {
+
+        // Don't send messages if the state isn't different
+        if(this.state == newState)
+            return;
+
         this.state = newState;
         Message.MessageType messageTypeToSend = null;
 
