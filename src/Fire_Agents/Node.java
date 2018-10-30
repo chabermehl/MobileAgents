@@ -4,7 +4,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-public class Node implements Runnable, MessageSenderReciever {
+public class Node extends MessageProcessor implements Runnable {
 
     enum State
     {
@@ -116,24 +116,6 @@ public class Node implements Runnable, MessageSenderReciever {
                 // Agent hasn't reached danger zone unless this node is yellow
         }
 
-    }
-
-    /**
-     * Send a message to a node
-     * @param message to send
-     * @param receiver to send message to
-     */
-    public void sendMessage(Message message, MessageSenderReciever receiver)
-    {
-        receiver.recieveMessage(message);
-    }
-
-    public void recieveMessage(Message message)
-    {
-        if(message != null)
-        {
-            messageQueue.add(message);
-        }
     }
 
     /**

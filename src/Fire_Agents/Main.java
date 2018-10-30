@@ -27,6 +27,9 @@ public class Main {
 
     public static void main(String[] args) {
 
+        // Test Agent
+        Agent agent = new Agent(null);
+
         // Create test nodes
         Node node1 = new Node(0,0, Node.State.SAFE, new LinkedList<>());
         Node node2 = new Node(0,0, Node.State.SAFE, new LinkedList<>());
@@ -36,10 +39,12 @@ public class Main {
         // Create threads
         Thread nodeThread1 = new Thread(node1);
         Thread nodeThread2 = new Thread(node2);
+        Thread agentThread = new Thread(agent);
 
         // Start node threads
         nodeThread1.start();
         nodeThread2.start();
+        agentThread.start();
 
         node1.setState(Node.State.FIRE);
 

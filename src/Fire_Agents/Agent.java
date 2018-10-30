@@ -25,15 +25,15 @@ public class Agent extends MessageProcessor implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while(true)
+        {
             try {
                 processMessage(getNextMessage());
             } catch (InterruptedException e) {
-                System.out.println(this.name + "'s messaging thread was interrupted.");
+                System.out.println(this.name + "'s thread was interrupted.");
                 e.printStackTrace();
             }
         }
-
     }
 
     @Override
