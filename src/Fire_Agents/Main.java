@@ -19,21 +19,24 @@ public class Main {
     public static void main(String[] args) {
 
         // Create test nodes
-        Node node1 = new Node(0,0, new LinkedList<>());
+        Node node1 = new Node(4,0, new LinkedList<>());
         Node node2 = new Node(0,0, new LinkedList<>());
-        Agent agent = new Agent(node1);
+        Node node3 = new Node (-4,0, new LinkedList<>());
 
-
+        // Add neighbors
         node1.addNeighbor(node2);
+        node2.addNeighbor(node3);
 
         // Create threads
         Thread nodeThread1 = new Thread(node1);
         Thread nodeThread2 = new Thread(node2);
-        Thread agentThread = new Thread(agent);
+        Thread nodeThread3 = new Thread(node3);
 
         // Start node threads
         nodeThread1.start();
         nodeThread2.start();
+        nodeThread3.start();
+
 
         node1.setState(Node.State.FIRE);
 
