@@ -6,8 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Node extends MessageProcessor implements Runnable {
 
-    enum State
-    {
+    enum State {
         FIRE,
         DANGER,
         SAFE
@@ -20,7 +19,6 @@ public class Node extends MessageProcessor implements Runnable {
     private State state = State.SAFE;
     private LinkedList<Node> neighbors = new LinkedList<>();
     private Agent agent = null;
-    private LinkedBlockingQueue<Message> messageQueue;
 
     // Static variable used for giving nodes unique names
     private static int nodeCount = 0;
@@ -36,18 +34,15 @@ public class Node extends MessageProcessor implements Runnable {
      * creates a node with a position, initialized states and that nodes neighbors
      * @param x x-coordinate for node position
      * @param y y-coordinate for node position
-     * @param state alive, hot, dead
      * @param neighbors list of neighboring nodes
      */
-    public Node(int x, int y, State state, LinkedList<Node> neighbors) {
+    public Node(int x, int y, LinkedList<Node> neighbors) {
         nodeCount++;
         this.name = "Node_" + nodeCount;
         this.x = x;
         this.y = y;
-        this.state = state;
         this.neighbors = neighbors;
         this.agent = null;
-        messageQueue = new LinkedBlockingQueue<>();
     }
 
 
@@ -56,7 +51,7 @@ public class Node extends MessageProcessor implements Runnable {
 
         while (true) {
             try {
-                processMessage(messageQueue.take());
+                processMessage(getNextMessage());
             } catch (InterruptedException e) {
                 System.out.println(this.name + "'s messaging thread was interrupted.");
                 e.printStackTrace();
@@ -65,16 +60,13 @@ public class Node extends MessageProcessor implements Runnable {
 
     }
 
-    public boolean addNeighbor(Node neighbor)
-    {
+    public boolean addNeighbor(Node neighbor) {
         // The nodes should add each other
-        if(!neighbors.contains(neighbor))
-        {
+        if(!neighbors.contains(neighbor)) {
             neighbors.add(neighbor);
 
             // Have the neighbor do the same
-            if(!neighbor.neighbors.contains(this))
-            {
+            if(!neighbor.neighbors.contains(this)) {
                 neighbor.neighbors.add(this);
             }
             return true;
@@ -86,18 +78,15 @@ public class Node extends MessageProcessor implements Runnable {
      * Process the message and perform an action depending on the type of message recieved
      * @param message to process
      */
-    public void processMessage(Message message)
-    {
-        if(state == State.FIRE)
-        {
+    public void processMessage(Message message) {
+        if(state == State.FIRE) {
             // Dead nodes can't communicate. Return
             return;
         }
 
         System.out.println(name + " processing a message of type " + message.getMessageType().toString());
 
-        switch(message.getMessageType())
-        {
+        switch(message.getMessageType()) {
             case NODE_IN_DANGER:
                 System.out.println("A neighbor has turned yellow");
                 break;
@@ -115,7 +104,6 @@ public class Node extends MessageProcessor implements Runnable {
             case TRAVERSE_AGENT:
                 // Agent hasn't reached danger zone unless this node is yellow
         }
-
     }
 
     /**
@@ -166,20 +154,17 @@ public class Node extends MessageProcessor implements Runnable {
         this.state = newState;
         Message.MessageType messageTypeToSend = null;
 
-        switch(state)
-        {
+        switch(state) {
             case FIRE:
                 messageTypeToSend = Message.MessageType.NODE_DIED;
                 break;
 
             case DANGER:
                 messageTypeToSend = Message.MessageType.NODE_IN_DANGER;
-
         }
 
         // Send a message based on what the new state is
-        for(Node n : neighbors)
-        {
+        for(Node n : neighbors) {
             sendMessage(new Message(messageTypeToSend), n);
         }
     }

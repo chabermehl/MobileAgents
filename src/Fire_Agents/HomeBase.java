@@ -25,7 +25,12 @@ public class HomeBase extends Node {
     @Override
     public void processMessage(Message message)
     {
+        switch(message.getMessageType())
+        {
+            case CREATE_AGENT:
 
+                break;
+        }
     }
 
     private LinkedList<Agent> agentsCreated = new LinkedList<>();

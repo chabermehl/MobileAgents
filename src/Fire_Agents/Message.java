@@ -7,12 +7,12 @@ public class Message {
      * The types of messages that can be sent
      * depending on the circumstances
      */
-    enum MessageType
-    {
+    enum MessageType {
         NODE_DIED,
         NODE_IN_DANGER,
         CREATE_AGENT,
-        TRAVERSE_AGENT
+        TRAVERSE_AGENT,
+        CLONE_AGENT
     }
 
     private MessageType messageType;

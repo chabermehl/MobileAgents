@@ -6,8 +6,7 @@ public class Agent extends MessageProcessor implements Runnable {
     private Node currentNode;
     private static int agentCount = 0;
 
-    public Agent(Node startingNode)
-    {
+    public Agent(Node startingNode) {
         agentCount++;
         name = "Agent_" + agentCount;
         currentNode = startingNode;
@@ -25,8 +24,7 @@ public class Agent extends MessageProcessor implements Runnable {
 
     @Override
     public void run() {
-        while(true)
-        {
+        while(true) {
             try {
                 processMessage(getNextMessage());
             } catch (InterruptedException e) {
@@ -36,7 +34,6 @@ public class Agent extends MessageProcessor implements Runnable {
         }
     }
 
-    @Override
     public void processMessage(Message message) {
 
     }

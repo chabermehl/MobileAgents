@@ -10,8 +10,6 @@ public abstract class MessageProcessor  {
     {
         if(message != null)
             messageQueue.add(message);
-
-        processMessage(message);
     }
 
     protected void sendMessage(Message message, MessageProcessor mp)
