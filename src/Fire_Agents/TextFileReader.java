@@ -3,6 +3,9 @@ package Fire_Agents;
 import java.io.*;
 import java.util.LinkedList;
 
+/**
+ * this class reads lines of a file into a linked list of strings
+ */
 public class TextFileReader {
     LinkedList<String> FileToList(String fileName){
         LinkedList<String> fileList = new LinkedList<>();
