@@ -1,8 +1,5 @@
 package Fire_Agents;
 import java.util.LinkedList;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
 
 public class Node extends MessageProcessor implements Runnable {
 
@@ -22,12 +19,10 @@ public class Node extends MessageProcessor implements Runnable {
 
     // Static variable used for giving nodes unique names
     private static int nodeCount = 0;
-
-    // Rate at which fire spreads (in seconds)
-    private static final float fireSpreadRate = 1.0f;
+    private final double fireSpreadRate = 1; // in seconds
 
     /**
-     * added so we can extend node on our Homebase
+     * added so we can extend node on our HomeBase
      */
     public Node()
     {
@@ -59,37 +54,40 @@ public class Node extends MessageProcessor implements Runnable {
 
     @Override
     public void run() {
+        long time = System.currentTimeMillis();
+        double fireCounter = 0;
 
         float deathCounter = 0;
         float currentTime = System.currentTimeMillis();
 
         while (true) {
-            float dt = System.currentTimeMillis() - currentTime;
-            if(this.state == State.DANGER)
-            {
-                System.out.println(dt);
-                // Increment the timer
-                deathCounter += dt / 1000f;
-                if(deathCounter >= fireSpreadRate)
+            try {
+                long dt = System.currentTimeMillis() - time;
+                switch(state)
                 {
-                    setState(State.FIRE);
+                    // If we're "in danger", keep track of when we should turn red.
+                    case DANGER:
+                        processMessage(pollNextMessage());
+                        fireCounter += dt / 1000.0;
+                        //System.out.println(fireCounter);
+                        if(fireCounter >= fireSpreadRate)
+                        {
+                            setState(State.FIRE);
+                        }
+                        break;
+
+                    // Otherwise just block the thread until we get a message for
+                    // efficiency
+                    default:
+                        processMessage(waitNextMessage());
+                        break;
                 }
 
-                try {
-                    processMessage(getNextMessage());
-                } catch (InterruptedException e) {
-                    System.out.println(this.name + "'s messaging thread was interrupted.");
-                    e.printStackTrace();
-                }
-            }
-            else
-            {
-                try {
-                    processMessage(waitNextMessage());
-                } catch (InterruptedException e) {
-                    System.out.println(this.name + "'s messaging thread was interrupted.");
-                    e.printStackTrace();
-                }
+                time = System.currentTimeMillis();
+
+            } catch (InterruptedException e) {
+                System.out.println(this.name + "'s messaging thread was interrupted.");
+                e.printStackTrace();
             }
             currentTime = System.currentTimeMillis();
         }
@@ -114,7 +112,8 @@ public class Node extends MessageProcessor implements Runnable {
      * Process the message and perform an action depending on the type of message recieved
      * @param message to process
      */
-    public void processMessage(Message message) {
+
+    public void processMessage(Message message) throws InterruptedException {
         if(state == State.FIRE || message == null) {
             // Dead nodes can't communicate. Return
             return;
@@ -181,7 +180,7 @@ public class Node extends MessageProcessor implements Runnable {
      *                 hot
      *                 dead
      */
-    public void setState(State newState) {
+    public void setState(State newState) throws InterruptedException {
 
         // Don't send messages if the state isn't different
         if(this.state == newState)
@@ -201,7 +200,7 @@ public class Node extends MessageProcessor implements Runnable {
 
         // Send a message based on what the new state is
         for(Node n : neighbors) {
-            sendMessage(new Message(messageTypeToSend), n);
+            sendMessage(new Message(messageTypeToSend, this), n);
         }
     }
 

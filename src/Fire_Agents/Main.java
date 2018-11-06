@@ -37,5 +37,11 @@ public class Main {
         nodeThread2.start();
         nodeThread3.start();
 
+        try {
+            node1.setState(Node.State.FIRE);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 }

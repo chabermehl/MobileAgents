@@ -15,11 +15,13 @@ public class Message {
         CLONE_AGENT
     }
 
-    private MessageType messageType;
+    private final MessageType messageType;
+    private final MessageProcessor sender;
 
-    public Message(MessageType messageType)
+    public Message(MessageType messageType, MessageProcessor sender)
     {
         this.messageType = messageType;
+        this.sender = sender;
     }
 
     /**

@@ -13,6 +13,8 @@ import java.util.LinkedList;
 
 public class HomeBase extends Node {
 
+    private LinkedList<Agent> agentsCreated = new LinkedList<>();
+
     public HomeBase() {
         super();
     }
@@ -36,5 +38,4 @@ public class HomeBase extends Node {
         }
     }
 
-    private LinkedList<Agent> agentsCreated = new LinkedList<>();
 }
