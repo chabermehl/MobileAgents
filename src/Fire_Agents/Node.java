@@ -193,6 +193,7 @@ public class Node extends MessageProcessor implements Runnable {
         switch(state) {
             case FIRE:
                 messageTypeToSend = Message.MessageType.NODE_DIED;
+                agent = null;
                 break;
 
             case DANGER:
