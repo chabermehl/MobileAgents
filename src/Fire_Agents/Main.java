@@ -22,6 +22,7 @@ public class Main {
         Node node1 = new Node(4,0, new LinkedList<>());
         Node node2 = new Node(0,0, new LinkedList<>());
         Node node3 = new Node (-4,0, new LinkedList<>());
+        Agent agent = new Agent(null);
 
         // Add neighbors
         node1.addNeighbor(node2);
@@ -31,14 +32,20 @@ public class Main {
         Thread nodeThread1 = new Thread(node1);
         Thread nodeThread2 = new Thread(node2);
         Thread nodeThread3 = new Thread(node3);
+        Thread agentThread = new Thread(agent);
 
         // Start node threads
         nodeThread1.start();
         nodeThread2.start();
         nodeThread3.start();
+        agentThread.start();
 
 
-        node1.setState(Node.State.FIRE);
+        try {
+            node1.setState(Node.State.FIRE);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 }
