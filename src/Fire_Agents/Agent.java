@@ -4,14 +4,12 @@ public class Agent extends MessageProcessor implements Runnable {
 
     private String name;
     private Node currentNode;
-    private HomeBase homeBase;
     private static int agentCount = 0;
 
     public Agent(HomeBase base) {
         agentCount++;
         name = "Agent_" + agentCount;
         currentNode = base;
-        homeBase = base;
     }
 
     public Node getCurrentNode()

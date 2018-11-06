@@ -9,7 +9,7 @@ public class Node extends MessageProcessor implements Runnable {
         SAFE
     }
 
-    //initialized variables for constructor
+    // Initialized variables for constructor
     private String name = "";
     private int x = 0;
     private int y = 0;
@@ -19,7 +19,7 @@ public class Node extends MessageProcessor implements Runnable {
 
     // Static variable used for giving nodes unique names
     private static int nodeCount = 0;
-    private final double fireSpreadRate = 1; // in seconds
+    private final double fireSpreadRate = 2; // in seconds
 
     /**
      * added so we can extend node on our HomeBase
@@ -130,6 +130,7 @@ public class Node extends MessageProcessor implements Runnable {
                 // Set state to "in danger"
                 System.out.println("A neighbor has turned red. Setting state to yellow");
                 setState(State.DANGER);
+
                 break;
 
             case CREATE_AGENT:
@@ -145,7 +146,7 @@ public class Node extends MessageProcessor implements Runnable {
      * gets the name of the the node
      * @return name of the node
      */
-    private String getName() {
+    public String getName() {
         return this.name;
     }
 
@@ -200,7 +201,7 @@ public class Node extends MessageProcessor implements Runnable {
 
         // Send a message based on what the new state is
         for(Node n : neighbors) {
-            sendMessage(new Message(messageTypeToSend, this), n);
+            sendMessage(new Message(messageTypeToSend, this.name), n);
         }
     }
 
@@ -208,15 +209,30 @@ public class Node extends MessageProcessor implements Runnable {
      * gets the list of neighbors the node has
      * @return neighbor list
      */
-    private LinkedList<Node> getNeighbors() {
+    protected LinkedList<Node> getNeighbors() {
         return this.neighbors;
+    }
+
+    /**
+     * Returns neighbor with the given name
+     * @param name to search for
+     * @return Node with name, null if not found
+     */
+    protected Node getNeighborByName(String name)
+    {
+        for(Node node : neighbors)
+        {
+            if(node.getName().equals(name))
+                return node;
+        }
+        return null;
     }
 
     /**
      * says whether there is an agent on the node or not
      * @return boolean representing the state
      */
-    private boolean hasAgent() {
+    protected boolean hasAgent() {
         return agent == null;
     }
 
@@ -226,7 +242,7 @@ public class Node extends MessageProcessor implements Runnable {
      *                    True
      *                    False
      */
-    private void setAgent(Agent agent) {
+    protected void setAgent(Agent agent) {
         this.agent = agent;
     }
 }

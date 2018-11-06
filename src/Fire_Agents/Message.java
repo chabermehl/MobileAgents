@@ -16,9 +16,9 @@ public class Message {
     }
 
     private final MessageType messageType;
-    private final MessageProcessor sender;
+    private final String sender;
 
-    public Message(MessageType messageType, MessageProcessor sender)
+    public Message(MessageType messageType, String sender)
     {
         this.messageType = messageType;
         this.sender = sender;
@@ -32,4 +32,6 @@ public class Message {
     {
         return this.messageType;
     }
+
+    public String getSender() {return this.sender;}
 }

@@ -35,6 +35,8 @@ public class HomeBase extends Node {
                 Thread agentThread = new Thread(agentsCreated.getLast());
                 agentThread.start();
                 break;
+            case NODE_DIED:
+                System.out.println("a node died. gonna die soon");
         }
     }
 
