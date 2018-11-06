@@ -28,7 +28,10 @@ public class HomeBase extends Node {
         switch(message.getMessageType())
         {
             case CREATE_AGENT:
-
+                // Create an agent and send them toward the next set of yellow nodes
+                createAgent();
+                Thread agentThread = new Thread(agentsCreated.getLast());
+                agentThread.start();
                 break;
         }
     }

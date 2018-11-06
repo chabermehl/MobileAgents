@@ -1,12 +1,13 @@
 package Fire_Agents;
 
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 public abstract class MessageProcessor  {
 
     private LinkedBlockingQueue<Message> messageQueue = new LinkedBlockingQueue<>();
 
-    private void recieveMessage(Message message)
+    private void receiveMessage(Message message)
     {
         if(message != null)
             messageQueue.add(message);
@@ -14,11 +15,15 @@ public abstract class MessageProcessor  {
 
     protected void sendMessage(Message message, MessageProcessor mp)
     {
-        mp.recieveMessage(message);
+        mp.receiveMessage(message);
+    }
+
+    protected Message waitNextMessage() throws InterruptedException {
+        return messageQueue.take();
     }
 
     protected Message getNextMessage() throws InterruptedException {
-        return messageQueue.take();
+        return messageQueue.isEmpty() ? null : messageQueue.take();
     }
 
     protected abstract void processMessage(Message message);

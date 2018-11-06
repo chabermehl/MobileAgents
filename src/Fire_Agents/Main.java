@@ -37,8 +37,5 @@ public class Main {
         nodeThread2.start();
         nodeThread3.start();
 
-
-        node1.setState(Node.State.FIRE);
-
     }
 }

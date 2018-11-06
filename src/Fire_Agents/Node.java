@@ -23,6 +23,9 @@ public class Node extends MessageProcessor implements Runnable {
     // Static variable used for giving nodes unique names
     private static int nodeCount = 0;
 
+    // Rate at which fire spreads (in seconds)
+    private static final float fireSpreadRate = 1.0f;
+
     /**
      * added so we can extend node on our Homebase
      */
@@ -45,17 +48,50 @@ public class Node extends MessageProcessor implements Runnable {
         this.agent = null;
     }
 
+    public Node(int x, int y) {
+        nodeCount++;
+        this.name = "Node_" + nodeCount;
+        this.x = x;
+        this.y = y;
+        this.agent = null;
+    }
+
 
     @Override
     public void run() {
 
+        float deathCounter = 0;
+        float currentTime = System.currentTimeMillis();
+
         while (true) {
-            try {
-                processMessage(getNextMessage());
-            } catch (InterruptedException e) {
-                System.out.println(this.name + "'s messaging thread was interrupted.");
-                e.printStackTrace();
+            float dt = System.currentTimeMillis() - currentTime;
+            if(this.state == State.DANGER)
+            {
+                System.out.println(dt);
+                // Increment the timer
+                deathCounter += dt / 1000f;
+                if(deathCounter >= fireSpreadRate)
+                {
+                    setState(State.FIRE);
+                }
+
+                try {
+                    processMessage(getNextMessage());
+                } catch (InterruptedException e) {
+                    System.out.println(this.name + "'s messaging thread was interrupted.");
+                    e.printStackTrace();
+                }
             }
+            else
+            {
+                try {
+                    processMessage(waitNextMessage());
+                } catch (InterruptedException e) {
+                    System.out.println(this.name + "'s messaging thread was interrupted.");
+                    e.printStackTrace();
+                }
+            }
+            currentTime = System.currentTimeMillis();
         }
 
     }
@@ -79,7 +115,7 @@ public class Node extends MessageProcessor implements Runnable {
      * @param message to process
      */
     public void processMessage(Message message) {
-        if(state == State.FIRE) {
+        if(state == State.FIRE || message == null) {
             // Dead nodes can't communicate. Return
             return;
         }
