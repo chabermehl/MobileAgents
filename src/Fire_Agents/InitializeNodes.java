@@ -25,9 +25,11 @@ public class InitializeNodes {
                     HomeBase station = new HomeBase();
                     station.setX(Integer.parseInt(lines[1]));
                     station.setY(Integer.parseInt(lines[2]));
+                    nodes.add(station);
                 }
                 else if("node".equals(lines[0])) {
-
+                    Node node = new Node(Integer.parseInt(lines[1]), Integer.parseInt(lines[2]), new LinkedList<>());
+                    nodes.add(node);
                 }
                 else if("edge".equals(lines[0])) {
 
