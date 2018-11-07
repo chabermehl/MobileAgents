@@ -11,6 +11,11 @@ public class InitializeNodes {
     boolean validGraph;
 
     public boolean initializeGraph(String mapFile) {
-
+        validGraph = true;
+        nodes = new LinkedList<>();
+        edges = new LinkedList<>();
+        largetCol = 0;
+        largestRow = 0;
+        return validGraph;
     }
 }
