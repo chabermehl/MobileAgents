@@ -166,6 +166,14 @@ public class Node extends MessageProcessor implements Runnable {
         return this.y;
     }
 
+    private void setX(int x) {
+        this.x = x;
+    }
+
+    private void setY(int y) {
+        this.y = y;
+    }
+
     /**
      * gets the state of the node
      * @return node state
