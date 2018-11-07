@@ -15,6 +15,7 @@ public class InitializeNodes {
      * @param mapFile config file that is passed in
      */
     //TODO: fix unhandled exceptions
+    //TODO: set up neighbors with edge lists
     public void initializeGraph(String mapFile) {
         validGraph = true;
         nodes = new LinkedList<>();
