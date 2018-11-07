@@ -189,7 +189,7 @@ public class Node extends MessageProcessor implements Runnable {
      *                 hot
      *                 dead
      */
-    public void setState(State newState) /*throws InterruptedException*/ {
+    public void setState(State newState) throws InterruptedException {
 
         // Don't send messages if the state isn't different
         if(this.state == newState)
