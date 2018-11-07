@@ -40,9 +40,19 @@ public class InitializeNodes {
                         Node node = new Node(Integer.parseInt(lines[1]), Integer.parseInt(lines[2]), new LinkedList<>());
                         //need to handle the exception in setState
                         node.setState(Node.State.FIRE);
+                        nodes.add(node);
                     } else {
+                        boolean notFound = true;
                         for(Node tempNode : nodes) {
-
+                            if((tempNode.getX() == Integer.parseInt(lines[1])) && (tempNode.getY() == Integer.parseInt(lines[2])) && (notFound)) {
+                                tempNode.setState(Node.State.FIRE);
+                                notFound = false;
+                            }
+                        }
+                        if(!notFound) {
+                            Node node = new Node(Integer.parseInt(lines[1]), Integer.parseInt(lines[2]), new LinkedList<>());
+                            node.setState(Node.State.FIRE);
+                            nodes.add(node);
                         }
                     }
                 } else {
