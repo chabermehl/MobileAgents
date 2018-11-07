@@ -154,7 +154,7 @@ public class Node extends MessageProcessor implements Runnable {
      * gets the x-coordinate of the node
      * @return nodes x-coordinate
      */
-    private int getX() {
+    public int getX() {
         return this.x;
     }
 
@@ -162,15 +162,15 @@ public class Node extends MessageProcessor implements Runnable {
      * gets the y-coordinate of the node
      * @return nodes y-coordinate
      */
-    private int getY() {
+    public int getY() {
         return this.y;
     }
 
-    private void setX(int x) {
+    public void setX(int x) {
         this.x = x;
     }
 
-    private void setY(int y) {
+    public void setY(int y) {
         this.y = y;
     }
 
@@ -178,7 +178,7 @@ public class Node extends MessageProcessor implements Runnable {
      * gets the state of the node
      * @return node state
      */
-    private State getState() {
+    public State getState() {
         return this.state;
     }
 
