@@ -5,7 +5,7 @@ import java.util.LinkedList;
 public class InitializeNodes {
 
     public int largestRow;
-    public int largetCol;
+    public int largestCol;
     public LinkedList<Node> nodes;
     public LinkedList<Edge> edges;
     public boolean validGraph;
@@ -19,7 +19,7 @@ public class InitializeNodes {
         validGraph = true;
         nodes = new LinkedList<>();
         edges = new LinkedList<>();
-        largetCol = 0;
+        largestCol = 0;
         largestRow = 0;
         TextFileReader textReader = new TextFileReader();
         LinkedList<String> fileLines = textReader.FileToList(mapFile);
