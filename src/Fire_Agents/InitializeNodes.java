@@ -16,6 +16,9 @@ public class InitializeNodes {
         edges = new LinkedList<>();
         largetCol = 0;
         largestRow = 0;
+        TextFileReader textReader = new TextFileReader();
+        LinkedList<String> fileLines = textReader.FileToList(mapFile);
+
         return validGraph;
     }
 }
