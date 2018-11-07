@@ -18,7 +18,14 @@ public class InitializeNodes {
         largestRow = 0;
         TextFileReader textReader = new TextFileReader();
         LinkedList<String> fileLines = textReader.FileToList(mapFile);
+        String[] graphStrings = new String[fileLines.size()];
+        graphStrings = fileLines.toArray(graphStrings);
 
+        for(String line : graphStrings) {
+            for(int i = 0; i < line.length(); i++) {
+
+            }
+        }
         return validGraph;
     }
 }
