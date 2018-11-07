@@ -23,4 +23,20 @@ public class Edge {
         this.endX = x;
         this.endY = y;
     }
+
+    public int getStartX() {
+        return this.startX;
+    }
+
+    public int getStartY() {
+        return this.startY;
+    }
+
+    public int getEndX() {
+        return this.endX;
+    }
+
+    public int getEndY() {
+        return this.endY;
+    }
 }
