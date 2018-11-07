@@ -23,6 +23,8 @@ public class InitializeNodes {
             for(int i = 0; i < lines.length; i++) {
                 if("station".equals(lines[0])) {
                     HomeBase station = new HomeBase();
+                    station.setX(Integer.parseInt(lines[1]));
+                    station.setY(Integer.parseInt(lines[2]));
                 }
                 else if("node".equals(lines[0])) {
 
