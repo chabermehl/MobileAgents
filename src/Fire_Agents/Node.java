@@ -138,7 +138,7 @@ public class Node extends MessageProcessor implements Runnable {
      * Moves the agent attached to this node to a new node, prioritizing
      * nodes that are in danger
      */
-    protected void MoveAgent()
+    protected void moveAgent()
     {
         Node nodeToMoveTo = null;
         // Get all neighbors and move the agent to the neighbor that's yellow or is closest
