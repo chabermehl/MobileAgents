@@ -8,7 +8,5 @@ also could be used to test if everything is working.
  */
 public class Main {
 
-    public static void main(String[] args) {
-        Application.launch(NodeDisplay.class, args);
-    }
+
 }
