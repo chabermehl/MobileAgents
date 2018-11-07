@@ -36,11 +36,6 @@ public class Main {
         nodeThread3.start();
 
         // Set the last node on fire
-        try {
-            node3.setState(Node.State.FIRE);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+        node3.setState(Node.State.FIRE);
     }
 }

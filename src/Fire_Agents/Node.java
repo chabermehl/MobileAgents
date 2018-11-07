@@ -113,7 +113,7 @@ public class Node extends MessageProcessor implements Runnable {
      * @param message to process
      */
 
-    public void processMessage(Message message) throws InterruptedException {
+    public void processMessage(Message message) {
         if(state == State.FIRE || message == null) {
             // Dead nodes can't communicate. Return
             return;
@@ -189,7 +189,7 @@ public class Node extends MessageProcessor implements Runnable {
      *                 hot
      *                 dead
      */
-    public void setState(State newState) throws InterruptedException {
+    public void setState(State newState) {
 
         // Don't send messages if the state isn't different
         if(this.state == newState)
@@ -210,7 +210,7 @@ public class Node extends MessageProcessor implements Runnable {
 
         // Send a message based on what the new state is
         for(Node n : neighbors) {
-            sendMessage(new Message(messageTypeToSend, this.name), n);
+                sendMessage(new Message(messageTypeToSend, this.name), n);
         }
     }
 

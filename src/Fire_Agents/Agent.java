@@ -34,8 +34,7 @@ public class Agent extends MessageProcessor implements Runnable {
         }
     }
 
-    public void processMessage(Message message) {
+    protected void processMessage(Message message) {
 
     }
-
 }

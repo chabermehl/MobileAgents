@@ -18,8 +18,12 @@ public abstract class MessageProcessor  {
      * @param message to send
      * @param mp processor to send the message to
      */
-    protected void sendMessage(Message message, MessageProcessor mp) throws InterruptedException {
-        mp.receiveMessage(message);
+    protected void sendMessage(Message message, MessageProcessor mp) {
+        try {
+            mp.receiveMessage(message);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
