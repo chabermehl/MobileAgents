@@ -17,6 +17,7 @@ public class HomeBase extends Node {
 
     public HomeBase() {
         super();
+        setName("HomeBase");
     }
 
     private void createAgent()
@@ -27,6 +28,13 @@ public class HomeBase extends Node {
     @Override
     public void processMessage(Message message)
     {
+        if(getState() == State.FIRE || message == null) {
+            return;
+        }
+
+        System.out.println("HomeBase received message " + message.getMessageType() +
+                " from " + message.getSender());
+
         switch(message.getMessageType())
         {
             case CREATE_AGENT:
@@ -36,6 +44,7 @@ public class HomeBase extends Node {
                 agentThread.start();
                 break;
             case NODE_DIED:
+                setState(State.DANGER);
                 System.out.println("a node died. gonna die soon");
         }
     }

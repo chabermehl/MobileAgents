@@ -19,7 +19,7 @@ public class Node extends MessageProcessor implements Runnable {
 
     // Static variable used for giving nodes unique names
     private static int nodeCount = 0;
-    private final double fireSpreadRate = 2; // in seconds
+    private final double fireSpreadRate = 1; // in seconds
 
     /**
      * added so we can extend node on our HomeBase
@@ -57,9 +57,6 @@ public class Node extends MessageProcessor implements Runnable {
         long time = System.currentTimeMillis();
         double fireCounter = 0;
 
-        float deathCounter = 0;
-        float currentTime = System.currentTimeMillis();
-
         while (true) {
             try {
                 long dt = System.currentTimeMillis() - time;
@@ -82,16 +79,12 @@ public class Node extends MessageProcessor implements Runnable {
                         processMessage(waitNextMessage());
                         break;
                 }
-
                 time = System.currentTimeMillis();
-
             } catch (InterruptedException e) {
                 System.out.println(this.name + "'s messaging thread was interrupted.");
                 e.printStackTrace();
             }
-            currentTime = System.currentTimeMillis();
         }
-
     }
 
     public boolean addNeighbor(Node neighbor) {
@@ -112,23 +105,21 @@ public class Node extends MessageProcessor implements Runnable {
      * Process the message and perform an action depending on the type of message recieved
      * @param message to process
      */
-
     public void processMessage(Message message) {
         if(state == State.FIRE || message == null) {
             // Dead nodes can't communicate. Return
             return;
         }
-
-        System.out.println(name + " processing a message of type " + message.getMessageType().toString());
-
+        System.out.println(name + " processing a message of type " +
+                message.getMessageType().toString() + " from " + message.getSender());
         switch(message.getMessageType()) {
             case NODE_IN_DANGER:
-                System.out.println("A neighbor has turned yellow");
+                //System.out.println("A neighbor has turned yellow");
                 break;
 
             case NODE_DIED:
                 // Set state to "in danger"
-                System.out.println("A neighbor has turned red. Setting state to yellow");
+                //System.out.println("A neighbor has turned red. Setting state to yellow");
                 setState(State.DANGER);
 
                 break;
@@ -138,7 +129,32 @@ public class Node extends MessageProcessor implements Runnable {
                 System.out.println(("An agent is needing to be created"));
 
             case TRAVERSE_AGENT:
-                // Agent hasn't reached danger zone unless this node is yellow
+                // Grab an agent if possible, and keep moving it if needed
+
+        }
+    }
+
+    /**
+     * Moves the agent attached to this node to a new node, prioritizing
+     * nodes that are in danger
+     */
+    protected void MoveAgent()
+    {
+        Node nodeToMoveTo = null;
+        // Get all neighbors and move the agent to the neighbor that's yellow or is closest
+        for(Node n : neighbors) {
+            if(!n.hasAgent() && n.getState() == State.DANGER) {
+                nodeToMoveTo = n;
+                break;
+            }
+            else if(n.getState() != State.FIRE && !n.hasAgent() &&
+                    !agent.getLastNodeVisited().equals(n.getName())) {
+                nodeToMoveTo = n;
+            }
+        }
+        // Send agent new message and wait for it to
+        if (nodeToMoveTo != null && agent != null) {
+            sendMessage(new Message(Message.MessageType.TRAVERSE_AGENT, this.name), nodeToMoveTo);
         }
     }
 
@@ -166,10 +182,18 @@ public class Node extends MessageProcessor implements Runnable {
         return this.y;
     }
 
+    /**
+     * Set the X coordinate of this node
+     * @param x x-coordinate
+     */
     public void setX(int x) {
         this.x = x;
     }
 
+    /**
+     * Set the Y coordinate of this node
+     * @param y y-coordinate
+     */
     public void setY(int y) {
         this.y = y;
     }
@@ -201,7 +225,8 @@ public class Node extends MessageProcessor implements Runnable {
         switch(state) {
             case FIRE:
                 messageTypeToSend = Message.MessageType.NODE_DIED;
-                agent = null;
+                agent = null; // kill agent
+                System.out.println("Node " + name + " died.");
                 break;
 
             case DANGER:
@@ -252,6 +277,12 @@ public class Node extends MessageProcessor implements Runnable {
      *                    False
      */
     protected void setAgent(Agent agent) {
-        this.agent = agent;
+        if(agent != null) {this.agent = agent;}
     }
+
+    /**
+     * Sets the name of this node.
+     * @param name to set
+     */
+    protected void setName(String name) {this.name = name;}
 }

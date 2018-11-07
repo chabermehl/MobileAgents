@@ -4,6 +4,7 @@ public class Agent extends MessageProcessor implements Runnable {
 
     private String name;
     private Node currentNode;
+    private String lastNodeVisited;
     private static int agentCount = 0;
 
     public Agent(HomeBase base) {
@@ -22,6 +23,8 @@ public class Agent extends MessageProcessor implements Runnable {
         return name;
     }
 
+    public String getLastNodeVisited() {return lastNodeVisited;}
+
     @Override
     public void run() {
         while(true) {
@@ -35,6 +38,11 @@ public class Agent extends MessageProcessor implements Runnable {
     }
 
     protected void processMessage(Message message) {
+        if(message == null) {return;}
 
+        switch(message.getMessageType()) {
+            case CLONE_AGENT:
+                break;
+        }
     }
 }

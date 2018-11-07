@@ -33,5 +33,9 @@ public class Message {
         return this.messageType;
     }
 
+    /**
+     * Gets the name of sender of this message
+     * @return name of sender
+     */
     public String getSender() {return this.sender;}
 }

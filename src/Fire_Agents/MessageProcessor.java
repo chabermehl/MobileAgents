@@ -7,7 +7,11 @@ public abstract class MessageProcessor  {
 
     private LinkedBlockingQueue<Message> messageQueue = new LinkedBlockingQueue<>();
 
-
+    /**
+     * Receives a message and puts it into the queue.
+     * @param message message being received
+     * @throws InterruptedException
+     */
     private void receiveMessage(Message message) throws InterruptedException {
         if(message != null)
             messageQueue.put(message);
