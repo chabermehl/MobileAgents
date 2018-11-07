@@ -4,11 +4,11 @@ import java.util.LinkedList;
 
 public class InitializeNodes {
 
-    private int largestRow;
-    private int largetCol;
-    private LinkedList<Node> nodes;
-    private LinkedList<Edge> edges;
-    private boolean validGraph;
+    public int largestRow;
+    public int largetCol;
+    public LinkedList<Node> nodes;
+    public LinkedList<Edge> edges;
+    public boolean validGraph;
 
     public boolean initializeGraph(String mapFile) {
         validGraph = true;
