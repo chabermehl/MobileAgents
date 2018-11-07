@@ -32,7 +32,7 @@ public class InitializeNodes {
                     nodes.add(node);
                 }
                 else if("edge".equals(lines[0])) {
-
+                    Edge edge = new Edge(Integer.parseInt(lines[1]), Integer.parseInt(lines[2]), Integer.parseInt(lines[3]), Integer.parseInt(lines[4]))
                 }
                 else if("fire".equals(lines[0])) {
 
