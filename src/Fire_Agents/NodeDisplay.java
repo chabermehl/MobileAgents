@@ -3,6 +3,7 @@ package Fire_Agents;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.LinkedList;
 
 /*
@@ -13,6 +14,7 @@ public class NodeDisplay extends Application {
     private Stage window;
     private LinkedList<Node> nodes;
     private LinkedList<Edge> edges;
+    private LinkedList<String> graphList;
     private InitializeGraph graph;
 
 
@@ -28,8 +30,11 @@ public class NodeDisplay extends Application {
     }
 
     private void startScene() {
+        GraphLoader graphLoader = new GraphLoader();
         graph = new InitializeGraph();
         graph.graphInitialization("graphs/default");
+        final File folder = new File(getClass().getClassLoader().getResource("graphs").getFile());
+        graphList = graphLoader.graphList(folder);
 
     }
 
