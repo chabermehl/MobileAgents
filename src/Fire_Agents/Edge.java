@@ -14,16 +14,6 @@ public class Edge {
         this.endY = endY;
     }
 
-    public void setStartXY(int x, int y) {
-        this.startX = x;
-        this.startY = y;
-    }
-
-    public void setEndXY(int x, int y) {
-        this.endX = x;
-        this.endY = y;
-    }
-
     public int getStartX() {
         return this.startX;
     }
