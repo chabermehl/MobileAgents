@@ -20,17 +20,26 @@ public class HomeBase extends Node {
         setName("HomeBase");
     }
 
+    /**
+     * Creates an agent and starts its random walk towards
+     * fire.
+     */
     public void createAgent() {
         Agent agent = new Agent(this);
         setAgent(agent);
-        addAgentInfo(agent.getName(), this.getName());
         Thread agentThread = new Thread(agent);
         agentThread.start();
         moveAgent();
     }
 
+    /**
+     * Adds an agent name and location to the list of created agents
+     * @param agentName name of agent to add
+     * @param nodeName agent's location
+     */
     private void addAgentInfo(String agentName, String nodeName) {
         agentMap.put(agentName, nodeName);
+        System.out.println("Added " + agentName + " from location " + nodeName);
     }
 
     @Override

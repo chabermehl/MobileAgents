@@ -118,18 +118,15 @@ public class Node extends MessageProcessor implements Runnable {
             // Dead nodes can't communicate. Return
             return;
         }
-        System.out.println(name + " processing a message of type " +
-                message.getMessageType().toString() + " from " + message.getSender());
+        //System.out.println(name + " processing a message of type " +
+        //        message.getMessageType().toString() + " from " + message.getSender());
         switch(message.getMessageType()) {
             case NODE_IN_DANGER:
-                //System.out.println("A neighbor has turned yellow");
                 break;
 
             case NODE_DIED:
                 // Set state to "in danger"
-                // System.out.println("A neighbor has turned red. Setting state to yellow");
                 setState(State.DANGER);
-
                 break;
 
             case CREATE_AGENT:
@@ -241,7 +238,7 @@ public class Node extends MessageProcessor implements Runnable {
             if(!n.hasAgent() && n.getState() != State.FIRE) {
                 Agent agentClone = new Agent(n);
                 n.setAgent(agentClone);
-                System.out.println("Cloning agent from " + getName() + " to " + n.getName());
+                System.out.println("Cloning " + agentClone.getName() + " from " + getName() + " to " + n.getName());
 
                 // If one of the nodes is yellow, make sure to keep cloning from that node
                 if(n.getState() == State.DANGER ) {
