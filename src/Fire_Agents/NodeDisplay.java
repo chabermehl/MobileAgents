@@ -11,9 +11,9 @@ GUI code goes here
 public class NodeDisplay extends Application {
 
     private Stage window;
-    LinkedList<Node> nodes;
-    LinkedList<Edge> edges;
-    InitializeGraph graph;
+    private LinkedList<Node> nodes;
+    private LinkedList<Edge> edges;
+    private InitializeGraph graph;
 
 
     public static void main(String[] args) {
