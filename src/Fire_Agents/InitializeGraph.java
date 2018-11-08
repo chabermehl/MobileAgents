@@ -20,6 +20,9 @@ public class InitializeGraph {
     }
 
     public void startThreads() {
-
+        for(Node tempNode : nodes) {
+            Thread threadedNode = new Thread(tempNode);
+            threadedNode.start();
+        }
     }
 }
