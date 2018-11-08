@@ -38,7 +38,7 @@ public class NodeDisplay extends Application {
 
     }
 
-    private void sendAgent() {
+    private void sendAgentOnGraph() {
 
     }
 
