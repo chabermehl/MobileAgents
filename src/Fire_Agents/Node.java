@@ -68,8 +68,7 @@ public class Node extends MessageProcessor implements Runnable {
                         processMessage(pollNextMessage());
                         fireCounter += dt / 1000.0;
                         //System.out.println(fireCounter);
-                        if(fireCounter >= fireSpreadRate)
-                        {
+                        if(fireCounter >= fireSpreadRate) {
                             setState(State.FIRE);
                         }
                         break;
@@ -132,11 +131,7 @@ public class Node extends MessageProcessor implements Runnable {
             case TRAVERSE_AGENT:
                 // Grab an agent if possible, and keep moving it if needed
                 Node sender = getNeighborByName(message.getSender());
-                if(sender != null) {
-                    this.agent = sender.agent;
-                    sender.agent = null;
-                    agent.setCurrentNode(this);
-                }
+                grabAgent(sender);
                 if(state == State.DANGER) {
                     // Clone this agent
                 }
@@ -162,13 +157,25 @@ public class Node extends MessageProcessor implements Runnable {
                 break;
             }
             else if(n.getState() != State.FIRE && !n.hasAgent() &&
-                    !agent.getLastNodeVisited().equals(n.getName())) {
+                !agent.getLastNodeVisited().equals(n.getName())) {
                 nodeToMoveTo = n;
             }
         }
         // Send agent new message and wait for it to
         if (nodeToMoveTo != null && agent != null) {
+            System.out.println("Moving agent to " + nodeToMoveTo.getName());
             sendMessage(new Message(Message.MessageType.TRAVERSE_AGENT, this.name), nodeToMoveTo);
+        }
+    }
+
+    private void grabAgent(Node from)
+    {
+        if(from != null && from.agent != null) {
+            System.out.println(from.agent.getLastNodeVisited());
+            this.agent = from.agent;
+            from.agent = null;
+            agent.setCurrentNode(this);
+            System.out.println(this.agent.getLastNodeVisited());
         }
     }
 
@@ -281,7 +288,7 @@ public class Node extends MessageProcessor implements Runnable {
      * @return boolean representing the state
      */
     protected boolean hasAgent() {
-        return agent == null;
+        return agent != null;
     }
 
     /**

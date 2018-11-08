@@ -20,9 +20,11 @@ public class HomeBase extends Node {
         setName("HomeBase");
     }
 
-    private void createAgent()
+    public void createAgent()
     {
-        agentsCreated.add(new Agent(this));
+        Agent agent = new Agent(this);
+        agentsCreated.add(agent);
+        setAgent(agent);
     }
 
     @Override
@@ -40,12 +42,14 @@ public class HomeBase extends Node {
             case CREATE_AGENT:
                 // Create an agent and send them toward the next set of yellow nodes
                 createAgent();
-                Thread agentThread = new Thread(agentsCreated.getLast());
+                moveAgent();
+                Thread agentThread = new Thread(agentsCreated.peekLast());
                 agentThread.start();
                 break;
             case NODE_DIED:
                 setState(State.DANGER);
                 System.out.println("a node died. gonna die soon");
+                break;
         }
     }
 

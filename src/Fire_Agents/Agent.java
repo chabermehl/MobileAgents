@@ -11,6 +11,7 @@ public class Agent extends MessageProcessor implements Runnable {
         agentCount++;
         name = "Agent_" + agentCount;
         currentNode = base;
+        lastNodeVisited = currentNode.getName();
     }
 
     public void setCurrentNode(Node node)
