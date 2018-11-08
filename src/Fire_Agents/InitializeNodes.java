@@ -65,6 +65,16 @@ public class InitializeNodes {
     }
 
     public void buildNeighborLists() {
-
+        for(Node tempNode : nodes) {
+            for(Edge tempEdge : edges) {
+                if((tempNode.getX() == tempEdge.getStartX()) && (tempNode.getY() == tempEdge.getStartY())) {
+                    for(Node tempNode2 : nodes) {
+                        if((tempNode2.getX() == tempEdge.getEndX()) && tempNode2.getY() == tempEdge.getEndY()) {
+                            tempNode.addNeighbor(tempNode2);
+                        }
+                    }
+                }
+            }
+        }
     }
 }
