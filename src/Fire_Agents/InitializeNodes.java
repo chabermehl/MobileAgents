@@ -40,7 +40,6 @@ public class InitializeNodes {
                 } else if ("fire".equals(lines[0])) {
                     if (nodes.isEmpty()) {
                         Node node = new Node(Integer.parseInt(lines[1]), Integer.parseInt(lines[2]), new LinkedList<>());
-                        //need to handle the exception in setState
                         node.setState(Node.State.FIRE);
                         nodes.add(node);
                     } else {
