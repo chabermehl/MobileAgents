@@ -63,4 +63,8 @@ public class InitializeNodes {
             }
         }
     }
+
+    public void buildNeighborLists() {
+
+    }
 }
