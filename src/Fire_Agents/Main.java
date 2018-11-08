@@ -17,23 +17,29 @@ public class Main {
         Node node1 = new Node(2,0, new LinkedList<>());
         Node node2 = new Node(4,0, new LinkedList<>());
         Node node3 = new Node (6,0, new LinkedList<>());
+        Node node4 = new Node (6, 2, new LinkedList<>());
 
         // Add neighbors
         homeBase.addNeighbor(node1);
         node1.addNeighbor(node2);
         node2.addNeighbor(node3);
+        node2.addNeighbor(node4);
+        node3.addNeighbor(node4);
 
         // Create threads
         Thread homeBaseThread = new Thread(homeBase);
         Thread nodeThread1 = new Thread(node1);
         Thread nodeThread2 = new Thread(node2);
         Thread nodeThread3 = new Thread(node3);
+        Thread nodeThread4 = new Thread(node4);
 
         // Start node threads
         homeBaseThread.start();
         nodeThread1.start();
         nodeThread2.start();
         nodeThread3.start();
+        nodeThread4.start();
+
 
         // Set the last node on fire
         node3.setState(Node.State.FIRE);

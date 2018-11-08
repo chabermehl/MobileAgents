@@ -2,6 +2,8 @@ package Fire_Agents;
 import java.util.LinkedList;
 
 // TODO: Forward "Create Agent Messages" to home base
+// Maybe each node that's created hold the X Y values of the homebase and
+// sends each create agent message in that
 public class Node extends MessageProcessor implements Runnable {
 
     enum State {
@@ -111,7 +113,7 @@ public class Node extends MessageProcessor implements Runnable {
      * Process the message and perform an action depending on the type of message recieved
      * @param message to process
      */
-    public void processMessage(Message message) {
+    protected void processMessage(Message message) {
         if(state == State.FIRE || message == null) {
             // Dead nodes can't communicate. Return
             return;
@@ -217,6 +219,23 @@ public class Node extends MessageProcessor implements Runnable {
         // Send a message based on what the new state is
         for(Node n : neighbors) {
             sendMessage(new Message(messageTypeToSend, this.name), n);
+        }
+    }
+
+    /**
+     * Clones the current agent to any surrounding yellow nodes
+     */
+    private void cloneAgent() {
+        // Check each neighbor and clone current agent to surrounding nodes (with new ID?)
+        if(!hasAgent()) {return;}
+        for(Node n : neighbors) {
+            if(n.getState() == State.DANGER && !n.hasAgent()) {
+                Agent agentClone = new Agent(n);
+                n.setAgent(agentClone);
+                // Let the neighbor node know that an agent was cloned
+                // and let it do what it wants
+                sendMessage(new Message(Message.MessageType.CLONE_AGENT, this.getName()), n);
+            }
         }
     }
 
