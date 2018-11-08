@@ -12,6 +12,7 @@ public class InitializeNodes {
 
     /**
      * initializes all the nodes and edges for the gui
+     *
      * @param mapFile config file that is passed in
      */
     public void initializeGraph(String mapFile) {
@@ -68,11 +69,11 @@ public class InitializeNodes {
      * and adding those neighbors to their neighbor lists
      */
     public void buildNeighborLists() {
-        for(Node tempNode : nodes) {
-            for(Edge tempEdge : edges) {
-                if((tempNode.getX() == tempEdge.getStartX()) && (tempNode.getY() == tempEdge.getStartY())) {
-                    for(Node tempNode2 : nodes) {
-                        if((tempNode2.getX() == tempEdge.getEndX()) && tempNode2.getY() == tempEdge.getEndY()) {
+        for (Node tempNode : nodes) {
+            for (Edge tempEdge : edges) {
+                if ((tempNode.getX() == tempEdge.getStartX()) && (tempNode.getY() == tempEdge.getStartY())) {
+                    for (Node tempNode2 : nodes) {
+                        if ((tempNode2.getX() == tempEdge.getEndX()) && tempNode2.getY() == tempEdge.getEndY()) {
                             tempNode.addNeighbor(tempNode2);
                         }
                     }
@@ -80,6 +81,7 @@ public class InitializeNodes {
             }
         }
     }
+
     public LinkedList<Node> getNodes() {
         return nodes;
     }
