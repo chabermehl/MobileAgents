@@ -17,12 +17,24 @@ public class Message {
 
     private final MessageType messageType;
     private final String sender;
+    private final Object[] data; // optional data that can be associated with this message
+
 
     public Message(MessageType messageType, String sender)
     {
         this.messageType = messageType;
         this.sender = sender;
+        this.data = null;
     }
+
+    public Message(MessageType messageType, String sender, Object... data)
+    {
+        this.messageType = messageType;
+        this.sender = sender;
+        this.data = data;
+    }
+
+    public Object[] getData() {return this.data;}
 
     /**
      * Returns the message type of this message
