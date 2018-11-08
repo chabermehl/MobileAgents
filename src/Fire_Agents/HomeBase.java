@@ -48,7 +48,7 @@ public class HomeBase extends Node {
                 break;
             case NODE_DIED:
                 setState(State.DANGER);
-                System.out.println("a node died. gonna die soon");
+                System.out.println("Home Base in danger.");
                 break;
         }
     }

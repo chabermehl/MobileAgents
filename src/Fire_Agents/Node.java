@@ -163,7 +163,7 @@ public class Node extends MessageProcessor implements Runnable {
         }
         // Send agent new message and wait for it to
         if (nodeToMoveTo != null && agent != null) {
-            System.out.println("Moving agent to " + nodeToMoveTo.getName());
+            System.out.println(this.getName() + " moving agent to " + nodeToMoveTo.getName());
             sendMessage(new Message(Message.MessageType.TRAVERSE_AGENT, this.name), nodeToMoveTo);
         }
     }
@@ -171,11 +171,9 @@ public class Node extends MessageProcessor implements Runnable {
     private void grabAgent(Node from)
     {
         if(from != null && from.agent != null) {
-            System.out.println(from.agent.getLastNodeVisited());
             this.agent = from.agent;
             from.agent = null;
             agent.setCurrentNode(this);
-            System.out.println(this.agent.getLastNodeVisited());
         }
     }
 
