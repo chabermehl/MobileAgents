@@ -142,11 +142,16 @@ public class Node extends MessageProcessor implements Runnable {
                 grabAgent(sender);
                 if(state == State.DANGER) {
                     // Clone this agent
+                    cloneAgent();
                 }
                 else if(state == State.SAFE) {
                     // Keep moving this agent
                     moveAgent();
                 }
+
+            case CLONE_AGENT:
+                cloneAgent();
+                break;
         }
     }
 
