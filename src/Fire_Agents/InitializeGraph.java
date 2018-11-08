@@ -25,4 +25,20 @@ public class InitializeGraph {
             threadedNode.start();
         }
     }
+
+    public LinkedList<Node> getNodes() {
+        return nodes;
+    }
+
+    public LinkedList<Edge> getEdges() {
+        return edges;
+    }
+
+    public int getMaxCol() {
+        return maxCol;
+    }
+
+    public int getMaxRow() {
+        return maxRow;
+    }
 }
