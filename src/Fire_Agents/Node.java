@@ -1,6 +1,7 @@
 package Fire_Agents;
 import java.util.LinkedList;
 
+// TODO: Forward "Create Agent Messages" to home base
 public class Node extends MessageProcessor implements Runnable {
 
     enum State {
