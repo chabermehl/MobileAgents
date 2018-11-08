@@ -29,7 +29,7 @@ public class NodeDisplay extends Application {
 
     private void startScene() {
         graph = new InitializeGraph();
-        graph.graphInitialization("default");
+        graph.graphInitialization("graphs/default");
 
     }
 
