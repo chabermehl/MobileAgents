@@ -220,7 +220,9 @@ public class Node extends MessageProcessor implements Runnable {
                 break;
 
             case DANGER:
+                cloneAgent();
                 messageTypeToSend = Message.MessageType.NODE_IN_DANGER;
+                break;
         }
 
         // Send a message based on what the new state is

@@ -9,11 +9,11 @@ or are we better off creating a home base node?
 should we make a node interface instead?
  */
 
-import java.util.LinkedList;
+import java.util.HashMap;
 
 public class HomeBase extends Node {
 
-    private LinkedList<Agent> agentsCreated = new LinkedList<>();
+    private HashMap<String, String> agentMap = new HashMap<>();
 
     public HomeBase() {
         super();
@@ -22,12 +22,19 @@ public class HomeBase extends Node {
 
     public void createAgent() {
         Agent agent = new Agent(this);
-        agentsCreated.add(agent);
         setAgent(agent);
+        addAgentInfo(agent.getName(), this.getName());
+        Thread agentThread = new Thread(agent);
+        agentThread.start();
+        moveAgent();
+    }
+
+    private void addAgentInfo(String agentName, String nodeName) {
+        agentMap.put(agentName, nodeName);
     }
 
     @Override
-    public void processMessage(Message message) {
+    protected void processMessage(Message message) {
         if(getState() == State.FIRE || message == null) {
             return;
         }
@@ -36,13 +43,6 @@ public class HomeBase extends Node {
                 " from " + message.getSender());
 
         switch(message.getMessageType()) {
-            case CREATE_AGENT:
-                // Create an agent and send them toward the next set of yellow nodes
-                createAgent();
-                moveAgent();
-                Thread agentThread = new Thread(agentsCreated.peekLast());
-                agentThread.start();
-                break;
             case NODE_DIED:
                 setState(State.DANGER);
                 System.out.println("Home Base in danger.");

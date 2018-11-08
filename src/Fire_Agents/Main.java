@@ -11,7 +11,6 @@ also could be used to test if everything is working.
 public class Main {
 
     public static void main(String[] args) {
-
         // Create test nodes
         HomeBase homeBase = new HomeBase();
         Node node1 = new Node(2,0, new LinkedList<>());
@@ -42,7 +41,6 @@ public class Main {
 
         // Set the last node on fire
         node3.setState(Node.State.FIRE);
-        homeBase.processMessage(new Message(Message.MessageType.CREATE_AGENT, "the all-knowing"));
-
+        homeBase.createAgent();
     }
 }
