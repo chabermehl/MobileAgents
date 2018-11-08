@@ -2,6 +2,8 @@ package Fire_Agents;
 import java.util.LinkedList;
 
 // TODO: Forward "Create Agent Messages" to home base
+// Maybe each node that's created hold the X Y values of the homebase and
+// sends each create agent message in that
 public class Node extends MessageProcessor implements Runnable {
 
     enum State {
@@ -111,7 +113,7 @@ public class Node extends MessageProcessor implements Runnable {
      * Process the message and perform an action depending on the type of message recieved
      * @param message to process
      */
-    public void processMessage(Message message) {
+    protected void processMessage(Message message) {
         if(state == State.FIRE || message == null) {
             // Dead nodes can't communicate. Return
             return;
@@ -133,6 +135,7 @@ public class Node extends MessageProcessor implements Runnable {
             case CREATE_AGENT:
                 // Forward the message to nodes that are close to home base
                 System.out.println(("An agent is needing to be created"));
+                break;
 
             case TRAVERSE_AGENT:
                 // Grab an agent if possible, and keep moving it if needed
@@ -140,15 +143,21 @@ public class Node extends MessageProcessor implements Runnable {
                 grabAgent(sender);
                 if(state == State.DANGER) {
                     // Clone this agent
+                    cloneAgent();
                 }
                 else if(state == State.SAFE) {
                     // Keep moving this agent
                     moveAgent();
                 }
+                break;
+
+            case CLONE_AGENT:
+                cloneAgent();
+                break;
         }
     }
 
-    // TODO: Handle agents with nowhere to go? make sure threads don't mess up agents being moved
+    // TODO: Handle agents with nowhere to go? make sure threads don't mess up agents being moved if
     /**
      * Moves the agent attached to this node to a new node, prioritizing
      * nodes that are in danger
@@ -221,6 +230,25 @@ public class Node extends MessageProcessor implements Runnable {
     }
 
     /**
+     * Clones the current agent to any surrounding yellow nodes
+     */
+    private void cloneAgent() {
+        // Check each neighbor and clone current agent to surrounding nodes (with new ID?)
+        if(!hasAgent()) {return;}
+        for(Node n : neighbors) {
+            if(n.getState() == State.DANGER && !n.hasAgent()) {
+                Agent agentClone = new Agent(n);
+                n.setAgent(agentClone);
+
+                System.out.println("Cloning agent from " + getName() + " to " + n.getName());
+                // Let the neighbor node know that an agent was cloned
+                // and let it do what it wants
+                sendMessage(new Message(Message.MessageType.CLONE_AGENT, this.getName()), n);
+            }
+        }
+    }
+
+    /**
      * gets the name of the the node
      * @return name of the node
      */
@@ -283,8 +311,7 @@ public class Node extends MessageProcessor implements Runnable {
      */
     protected Node getNeighborByName(String name)
     {
-        for(Node node : neighbors)
-        {
+        for(Node node : neighbors) {
             if(node.getName().equals(name))
                 return node;
         }

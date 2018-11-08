@@ -7,10 +7,10 @@ public class Agent extends MessageProcessor implements Runnable {
     private String lastNodeVisited;
     private static int agentCount = 0;
 
-    public Agent(HomeBase base) {
+    public Agent(Node startingNode) {
         agentCount++;
         name = "Agent_" + agentCount;
-        currentNode = base;
+        currentNode = startingNode;
         lastNodeVisited = currentNode.getName();
     }
 
