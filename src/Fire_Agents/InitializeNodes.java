@@ -14,7 +14,6 @@ public class InitializeNodes {
      * initializes all the nodes and edges for the gui
      * @param mapFile config file that is passed in
      */
-    //TODO: set up neighbors with edge lists
     public void initializeGraph(String mapFile) {
         validGraph = true;
         nodes = new LinkedList<>();
@@ -64,6 +63,10 @@ public class InitializeNodes {
         }
     }
 
+    /**
+     * goes through all of the nodes checking to see if they have any neighbors
+     * and adding those neighbors to their neighbor lists
+     */
     public void buildNeighborLists() {
         for(Node tempNode : nodes) {
             for(Edge tempEdge : edges) {
