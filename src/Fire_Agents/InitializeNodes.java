@@ -14,7 +14,6 @@ public class InitializeNodes {
      * initializes all the nodes and edges for the gui
      * @param mapFile config file that is passed in
      */
-    //TODO: fix unhandled exceptions
     //TODO: set up neighbors with edge lists
     public void initializeGraph(String mapFile) {
         validGraph = true;
@@ -52,7 +51,7 @@ public class InitializeNodes {
                                 notFound = false;
                             }
                         }
-                        if (!notFound) {
+                        if (notFound) {
                             Node node = new Node(Integer.parseInt(lines[1]), Integer.parseInt(lines[2]), new LinkedList<>());
                             node.setState(Node.State.FIRE);
                             nodes.add(node);
