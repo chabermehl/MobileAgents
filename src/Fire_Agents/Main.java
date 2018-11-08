@@ -40,7 +40,6 @@ public class Main {
         nodeThread3.start();
         nodeThread4.start();
 
-
         // Set the last node on fire
         node3.setState(Node.State.FIRE);
         homeBase.processMessage(new Message(Message.MessageType.CREATE_AGENT, "the all-knowing"));

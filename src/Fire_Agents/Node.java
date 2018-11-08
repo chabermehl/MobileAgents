@@ -230,20 +230,21 @@ public class Node extends MessageProcessor implements Runnable {
     }
 
     /**
-     * Clones the current agent to any surrounding yellow nodes
+     * Clones the current agent to any surrounding nodes
      */
     private void cloneAgent() {
         // Check each neighbor and clone current agent to surrounding nodes (with new ID?)
         if(!hasAgent()) {return;}
         for(Node n : neighbors) {
-            if(n.getState() == State.DANGER && !n.hasAgent()) {
+            if(!n.hasAgent() && n.getState() != State.FIRE) {
                 Agent agentClone = new Agent(n);
                 n.setAgent(agentClone);
-
                 System.out.println("Cloning agent from " + getName() + " to " + n.getName());
-                // Let the neighbor node know that an agent was cloned
-                // and let it do what it wants
-                sendMessage(new Message(Message.MessageType.CLONE_AGENT, this.getName()), n);
+
+                // If one of the nodes is yellow, make sure to keep cloning from that node
+                if(n.getState() == State.DANGER ) {
+                    sendMessage(new Message(Message.MessageType.CLONE_AGENT, this.getName()), n);
+                }
             }
         }
     }
@@ -332,7 +333,7 @@ public class Node extends MessageProcessor implements Runnable {
      *                    True
      *                    False
      */
-    protected void setAgent(Agent agent) {
+    synchronized protected void setAgent(Agent agent) {
         if(agent != null) {this.agent = agent;}
     }
 
