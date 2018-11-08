@@ -80,4 +80,19 @@ public class InitializeNodes {
             }
         }
     }
+    public LinkedList<Node> getNodes() {
+        return nodes;
+    }
+
+    public LinkedList<Edge> getEdges() {
+        return edges;
+    }
+
+    public int getLargestCol() {
+        return largestCol;
+    }
+
+    public int getLargestRow() {
+        return largestRow;
+    }
 }
