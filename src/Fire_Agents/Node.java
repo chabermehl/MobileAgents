@@ -146,6 +146,7 @@ public class Node extends MessageProcessor implements Runnable {
         }
     }
 
+    // TODO: Handle agents with nowhere to go? make sure threads don't mess up agents being moved
     /**
      * Moves the agent attached to this node to a new node, prioritizing
      * nodes that are in danger
