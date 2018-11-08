@@ -27,9 +27,14 @@ public class NodeDisplay extends Application {
         startScene();
     }
 
-    public void startScene() {
+    private void startScene() {
         graph = new InitializeGraph();
         graph.graphInitialization("default");
-        graph.startThreads();
+
     }
+
+    private void sendAgent() {
+
+    }
+
 }
