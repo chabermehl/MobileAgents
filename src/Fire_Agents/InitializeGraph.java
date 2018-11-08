@@ -19,4 +19,7 @@ public class InitializeGraph {
         edges = initializeNodes.getEdges();
     }
 
+    public void startThreads() {
+
+    }
 }
