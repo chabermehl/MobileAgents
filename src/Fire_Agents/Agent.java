@@ -13,9 +13,10 @@ public class Agent extends MessageProcessor implements Runnable {
         currentNode = base;
     }
 
-    public Node getCurrentNode()
+    public void setCurrentNode(Node node)
     {
-        return currentNode;
+        lastNodeVisited = currentNode.getName();
+        currentNode = node;
     }
 
     public String getName()
@@ -41,7 +42,7 @@ public class Agent extends MessageProcessor implements Runnable {
         if(message == null) {return;}
 
         switch(message.getMessageType()) {
-            case CLONE_AGENT:
+            case TRAVERSE_AGENT:
                 break;
         }
     }

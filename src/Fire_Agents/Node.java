@@ -119,7 +119,7 @@ public class Node extends MessageProcessor implements Runnable {
 
             case NODE_DIED:
                 // Set state to "in danger"
-                //System.out.println("A neighbor has turned red. Setting state to yellow");
+                // System.out.println("A neighbor has turned red. Setting state to yellow");
                 setState(State.DANGER);
 
                 break;
@@ -130,7 +130,19 @@ public class Node extends MessageProcessor implements Runnable {
 
             case TRAVERSE_AGENT:
                 // Grab an agent if possible, and keep moving it if needed
-
+                Node sender = getNeighborByName(message.getSender());
+                if(sender != null) {
+                    this.agent = sender.agent;
+                    sender.agent = null;
+                    agent.setCurrentNode(this);
+                }
+                if(state == State.DANGER) {
+                    // Clone this agent
+                }
+                else if(state == State.SAFE) {
+                    // Keep moving this agent
+                    moveAgent();
+                }
         }
     }
 
