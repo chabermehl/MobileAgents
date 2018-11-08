@@ -135,6 +135,7 @@ public class Node extends MessageProcessor implements Runnable {
             case CREATE_AGENT:
                 // Forward the message to nodes that are close to home base
                 System.out.println(("An agent is needing to be created"));
+                break;
 
             case TRAVERSE_AGENT:
                 // Grab an agent if possible, and keep moving it if needed
@@ -148,6 +149,7 @@ public class Node extends MessageProcessor implements Runnable {
                     // Keep moving this agent
                     moveAgent();
                 }
+                break;
 
             case CLONE_AGENT:
                 cloneAgent();
@@ -155,7 +157,7 @@ public class Node extends MessageProcessor implements Runnable {
         }
     }
 
-    // TODO: Handle agents with nowhere to go? make sure threads don't mess up agents being moved
+    // TODO: Handle agents with nowhere to go? make sure threads don't mess up agents being moved if
     /**
      * Moves the agent attached to this node to a new node, prioritizing
      * nodes that are in danger
@@ -237,6 +239,8 @@ public class Node extends MessageProcessor implements Runnable {
             if(n.getState() == State.DANGER && !n.hasAgent()) {
                 Agent agentClone = new Agent(n);
                 n.setAgent(agentClone);
+
+                System.out.println("Cloning agent from " + getName() + " to " + n.getName());
                 // Let the neighbor node know that an agent was cloned
                 // and let it do what it wants
                 sendMessage(new Message(Message.MessageType.CLONE_AGENT, this.getName()), n);
@@ -307,8 +311,7 @@ public class Node extends MessageProcessor implements Runnable {
      */
     protected Node getNeighborByName(String name)
     {
-        for(Node node : neighbors)
-        {
+        for(Node node : neighbors) {
             if(node.getName().equals(name))
                 return node;
         }

@@ -20,16 +20,14 @@ public class HomeBase extends Node {
         setName("HomeBase");
     }
 
-    public void createAgent()
-    {
+    public void createAgent() {
         Agent agent = new Agent(this);
         agentsCreated.add(agent);
         setAgent(agent);
     }
 
     @Override
-    public void processMessage(Message message)
-    {
+    public void processMessage(Message message) {
         if(getState() == State.FIRE || message == null) {
             return;
         }
@@ -37,8 +35,7 @@ public class HomeBase extends Node {
         System.out.println("HomeBase received message " + message.getMessageType() +
                 " from " + message.getSender());
 
-        switch(message.getMessageType())
-        {
+        switch(message.getMessageType()) {
             case CREATE_AGENT:
                 // Create an agent and send them toward the next set of yellow nodes
                 createAgent();
