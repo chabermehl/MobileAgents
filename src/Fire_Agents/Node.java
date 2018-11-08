@@ -87,6 +87,12 @@ public class Node extends MessageProcessor implements Runnable {
         }
     }
 
+    /**
+     * Adds the given node to list of neighbors. The given Node also
+     * adds this node to its list of neighbors
+     * @param neighbor neighbor to add
+     * @return whether or not adding the neighbor was successful
+     */
     public boolean addNeighbor(Node neighbor) {
         // The nodes should add each other
         if(!neighbors.contains(neighbor)) {
@@ -168,12 +174,49 @@ public class Node extends MessageProcessor implements Runnable {
         }
     }
 
+    /**
+     * Grabs an agent from the given node
+     * @param from node to take agent from
+     */
     private void grabAgent(Node from)
     {
         if(from != null && from.agent != null) {
             this.agent = from.agent;
             from.agent = null;
             agent.setCurrentNode(this);
+        }
+    }
+
+    /**
+     * sets the state of the node
+     * @param newState nodes new state
+     *                 alive
+     *                 hot
+     *                 dead
+     */
+    public void setState(State newState) {
+
+        // Don't send messages if the state isn't different
+        if(this.state == newState)
+            return;
+
+        this.state = newState;
+        Message.MessageType messageTypeToSend = null;
+
+        switch(state) {
+            case FIRE:
+                messageTypeToSend = Message.MessageType.NODE_DIED;
+                agent = null; // kill agent
+                System.out.println("Node " + name + " died.");
+                break;
+
+            case DANGER:
+                messageTypeToSend = Message.MessageType.NODE_IN_DANGER;
+        }
+
+        // Send a message based on what the new state is
+        for(Node n : neighbors) {
+            sendMessage(new Message(messageTypeToSend, this.name), n);
         }
     }
 
@@ -223,39 +266,6 @@ public class Node extends MessageProcessor implements Runnable {
      */
     public State getState() {
         return this.state;
-    }
-
-    /**
-     * sets the state of the node
-     * @param newState nodes new state
-     *                 alive
-     *                 hot
-     *                 dead
-     */
-    public void setState(State newState) {
-
-        // Don't send messages if the state isn't different
-        if(this.state == newState)
-            return;
-
-        this.state = newState;
-        Message.MessageType messageTypeToSend = null;
-
-        switch(state) {
-            case FIRE:
-                messageTypeToSend = Message.MessageType.NODE_DIED;
-                agent = null; // kill agent
-                System.out.println("Node " + name + " died.");
-                break;
-
-            case DANGER:
-                messageTypeToSend = Message.MessageType.NODE_IN_DANGER;
-        }
-
-        // Send a message based on what the new state is
-        for(Node n : neighbors) {
-                sendMessage(new Message(messageTypeToSend, this.name), n);
-        }
     }
 
     /**
