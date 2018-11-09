@@ -14,7 +14,6 @@ public class InitializeNodes {
      *
      * @param mapFile config file that is passed in
      */
-    //TODO: get largest column/row
     public void initializeGraph(String mapFile) {
         nodes = new LinkedList<>();
         edges = new LinkedList<>();
