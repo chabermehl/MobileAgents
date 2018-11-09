@@ -2,22 +2,17 @@ package Fire_Agents;
 
 import javafx.application.Application;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.util.LinkedList;
 
 /*
@@ -28,10 +23,10 @@ public class NodeDisplay extends Application {
     private Stage window;
     private LinkedList<Node> nodes;
     private LinkedList<Node> neighbors;
-    //private LinkedList<String> graphList;
     private InitializeGraph graph;
 
     private BorderPane graphGrid;
+    private GridPane neighborPane;
     private Group graphGroup = new Group();
     private ObservableList<javafx.scene.Node> observableList = graphGroup.getChildren();
 
@@ -71,17 +66,16 @@ public class NodeDisplay extends Application {
 
     private void makeGraph() {
         nodes = graph.getNodes();
-        for(Node tempNode : nodes) {
+        for (Node tempNode : nodes) {
             Circle circle = new Circle(10);
-            circle.setCenterX((tempNode.getX()+10)*100);
-            circle.setCenterY((tempNode.getY()+10)*100);
+            circle.setCenterX((tempNode.getX() + 10) * 100);
+            circle.setCenterY((tempNode.getY() + 10) * 100);
             System.out.println(tempNode.getX());
             System.out.println(tempNode.getY());
-            if(tempNode.getName().equals("HomeBase")) {
+            if (tempNode.getName().equals("HomeBase")) {
                 System.out.println("BLUE");
                 circle.setFill(Color.BLUE);
-            }
-            else if(tempNode.getState().equals(Node.State.FIRE)) {
+            } else if (tempNode.getState().equals(Node.State.FIRE)) {
                 circle.setFill(Color.RED);
                 System.out.println("RED");
             } else {
@@ -89,8 +83,8 @@ public class NodeDisplay extends Application {
                 System.out.println("GREEN");
             }
             neighbors = tempNode.getNeighbors();
-            for(Node neighbor : neighbors) {
-                Line newEdge = new Line((tempNode.getX()+10)*100, (tempNode.getY()+10)*100, (neighbor.getX()+10)*100, (neighbor.getY()+10)*100);
+            for (Node neighbor : neighbors) {
+                Line newEdge = new Line((tempNode.getX() + 10) * 100, (tempNode.getY() + 10) * 100, (neighbor.getX() + 10) * 100, (neighbor.getY() + 10) * 100);
                 observableList.add(newEdge);
             }
 
@@ -120,23 +114,18 @@ public class NodeDisplay extends Application {
 
     private void neighborLabel() {
         LinkedList<Node> nodes;
-        LinkedList<Edge> edges;
         LinkedList<Node> neighbors;
-        InitializeGraph graph;
-
-        graph = new InitializeGraph();
-        graph.graphInitialization("default");
-
+        neighborPane = new GridPane();
         nodes = graph.getNodes();
-        edges = graph.getEdges();
-
-        for(Node tempNode : nodes) {
-            System.out.println("Name of Node");
-            System.out.println(tempNode.getName());
+        int totalNeighbors = 0;
+        int totalNodes = 0;
+        for (Node tempNode : nodes) {
+            Label nodeName = new Label(tempNode.getName());
             neighbors = tempNode.getNeighbors();
-            System.out.println("Starting Neighbors");
-            for(Node tempNode2 : neighbors) {
-                System.out.println(tempNode2.getName());
+            neighborPane.add(nodeName, 0, totalNeighbors);
+            totalNodes += neighbors.size();
+            for (Node tempNode2 : neighbors) {
+
             }
         }
     }
