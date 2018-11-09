@@ -76,12 +76,12 @@ public class NodeDisplay extends Application {
             circle.setCenterY((n.getY() + 10) * 100);
             if (n.getName().equals("HomeBase")) {
                 circle.setFill(Color.BLUE);
-            } else if (n.getState().equals(Node.State.FIRE)) {
-                circle.setFill(Color.RED);
-            } else if (n.getState().equals(Node.State.DANGER)) {
-                circle.setFill(Color.YELLOW);
             } else if (n.hasAgent()) {
                 circle.setFill(Color.BLACK);
+            } else if (n.getState().equals(Node.State.DANGER)) {
+                circle.setFill(Color.YELLOW);
+            } else if (n.getState().equals(Node.State.FIRE)) {
+                circle.setFill(Color.RED);
             } else {
                 circle.setFill(Color.GREEN);
             }
