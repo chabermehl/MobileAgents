@@ -2,6 +2,7 @@ package Fire_Agents;
 
 import javafx.application.Application;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -52,14 +53,16 @@ public class NodeDisplay extends Application {
         });
 
         makeGraph();
+        neighborLabel();
 
         graphGrid = new BorderPane();
         graphGrid.setCenter(graphGroup);
         graphGrid.setBottom(startNodes);
+        graphGrid.setRight(neighborPane);
 
 
         Scene background = new Scene(graphGrid, 1000, 1000);
-        window.setResizable(false);
+        //window.setResizable(false);
         window.setScene(background);
         window.show();
     }
@@ -76,7 +79,7 @@ public class NodeDisplay extends Application {
                 System.out.println("BLUE");
                 circle.setFill(Color.BLUE);
             } else if (tempNode.getState().equals(Node.State.FIRE)) {
-                circle.setFill(Color.RED);
+                circle.setFill(Color.YELLOW);
                 System.out.println("RED");
             } else {
                 circle.setFill(Color.GREEN);
@@ -106,27 +109,32 @@ public class NodeDisplay extends Application {
 //    }
 
     private void startNodeThreads() {
-        Button startButton = new Button("Start Fire!");
-        startButton.setOnAction(event -> {
-            graph.startThreads();
-        });
+        graph.startThreads();
     }
 
     private void neighborLabel() {
         LinkedList<Node> nodes;
         LinkedList<Node> neighbors;
+        LinkedList<String> neighborNames;
         neighborPane = new GridPane();
+        neighborPane.setPadding(new Insets(5,15,5,15));
         nodes = graph.getNodes();
         int totalNeighbors = 0;
-        int totalNodes = 0;
+        int counter = 0;
         for (Node tempNode : nodes) {
-            Label nodeName = new Label(tempNode.getName());
             neighbors = tempNode.getNeighbors();
+            neighborNames = tempNode.getNeighborNames();
+            Label nodeName = new Label(tempNode.getName());
+            nodeName.setPrefSize(100, 25);
             neighborPane.add(nodeName, 0, totalNeighbors);
-            totalNodes += neighbors.size();
-            for (Node tempNode2 : neighbors) {
-
+            totalNeighbors += neighbors.size();
+            for(String str : neighborNames) {
+                Label neighborName = new Label(str);
+                neighborName.setPrefSize(200, 25);
+                neighborPane.add(neighborName,1,counter);
+                counter++;
             }
+
         }
     }
 
