@@ -1,13 +1,17 @@
 package Fire_Agents;
 
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -24,7 +28,10 @@ public class NodeDisplay extends Application {
     private LinkedList<String> graphList;
     private InitializeGraph graph;
 
+    private BorderPane graphGrid;
     private FlowPane graphLoaderButtons;
+    private Group graphGroup = new Group();
+    private ObservableList<javafx.scene.Node> observableList = graphGroup.getChildren();
 
 
     public static void main(String[] args) {
@@ -66,6 +73,11 @@ public class NodeDisplay extends Application {
         startNodes.setToggleGroup(optionsGroup);
         getGraphs.setToggleGroup(optionsGroup);
         graphSelector.getChildren().addAll(changeGraph, getGraphs, startNodes);
+
+        graphGrid = new BorderPane();
+        graphGrid.setTop(graphGroup);
+        graphGrid.setCenter(graphLoaderButtons);
+        graphGrid.setBottom(graphSelector);
 
     }
 
