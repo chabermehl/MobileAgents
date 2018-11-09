@@ -19,7 +19,7 @@ This section is where you put any clarifications about your project & how it wor
 The jar file is located in the root directory of the project.
 
 ## Docs
-What folder is your documentation (diagram and class diagram) in?
+Check out the [documentation](../doc/doc.MD) file for that sweet, sweet info.
 
 ## Status
 ### Implemented Features
