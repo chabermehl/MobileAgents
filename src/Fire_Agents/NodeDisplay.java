@@ -114,9 +114,7 @@ public class NodeDisplay extends Application {
 
 
         Scene background = new Scene(graphGrid, 1000, 1000);
-        window.setResizable(false);
         window.setScene(background);
-        //graph.startThreads();
         window.show();
     }
 
