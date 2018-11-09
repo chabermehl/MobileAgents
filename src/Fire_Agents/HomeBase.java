@@ -43,6 +43,13 @@ public class HomeBase extends Node {
     }
 
     @Override
+    public void run()
+    {
+        createAgent();
+        super.run();
+    }
+
+    @Override
     protected void processMessage(Message message) {
         if(getState() == State.FIRE || message == null) {
             return;

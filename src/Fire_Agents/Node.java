@@ -17,6 +17,7 @@ public class Node extends MessageProcessor implements Runnable {
     private int x = 0;
     private int y = 0;
     private State state = State.SAFE;
+    private State startingState = State.SAFE;
     private LinkedList<Node> neighbors = new LinkedList<>();
     private Agent agent = null;
 
@@ -35,15 +36,14 @@ public class Node extends MessageProcessor implements Runnable {
      * creates a node with a position, initialized states and that nodes neighbors
      * @param x x-coordinate for node position
      * @param y y-coordinate for node position
-     * @param neighbors list of neighboring nodes
+     * @param startingState state to start in once run
      */
-    public Node(int x, int y, LinkedList<Node> neighbors) {
+    public Node(int x, int y, State startingState) {
         nodeCount++;
         this.name = "Node_" + nodeCount;
         this.x = x;
         this.y = y;
-        this.neighbors = neighbors;
-        this.agent = null;
+        this.startingState = startingState;
     }
 
     public Node(int x, int y) {
@@ -51,12 +51,21 @@ public class Node extends MessageProcessor implements Runnable {
         this.name = "Node_" + nodeCount;
         this.x = x;
         this.y = y;
-        this.agent = null;
     }
+
+    /**
+     * Sets the state to switch to when run
+     * @param state to switch to on startup
+     */
+    public void setStartingState(State state) {
+        this.startingState = state;
+    }
+
 
 
     @Override
     public void run() {
+        setState(startingState);
         long time = System.currentTimeMillis();
         double fireCounter = 0;
 
@@ -184,7 +193,7 @@ public class Node extends MessageProcessor implements Runnable {
      * Grabs an agent from the given node
      * @param from node to take agent from
      */
-    private void grabAgent(Node from)
+    protected void grabAgent(Node from)
     {
         if(from != null && from.agent != null) {
             this.agent = from.agent;
@@ -200,7 +209,7 @@ public class Node extends MessageProcessor implements Runnable {
      *                 hot
      *                 dead
      */
-    public void setState(State newState) {
+    protected void setState(State newState) {
 
         // Don't send messages if the state isn't different
         if(this.state == newState)

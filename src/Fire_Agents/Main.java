@@ -13,10 +13,10 @@ public class Main {
     public static void main(String[] args) {
         // Create test nodes
         HomeBase homeBase = new HomeBase();
-        Node node1 = new Node(2,0, new LinkedList<>());
-        Node node2 = new Node(4,0, new LinkedList<>());
-        Node node3 = new Node (6,0, new LinkedList<>());
-        Node node4 = new Node (6, 2, new LinkedList<>());
+        Node node1 = new Node(2,0);
+        Node node2 = new Node(4,0);
+        Node node3 = new Node (6,0, Node.State.FIRE);
+        Node node4 = new Node (6, 2);
 
         // Add neighbors
         homeBase.addNeighbor(node1);
@@ -38,9 +38,5 @@ public class Main {
         nodeThread2.start();
         nodeThread3.start();
         nodeThread4.start();
-
-        // Set the last node on fire
-        node3.setState(Node.State.FIRE);
-        homeBase.createAgent();
     }
 }
