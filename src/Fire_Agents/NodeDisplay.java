@@ -32,7 +32,6 @@ public class NodeDisplay extends Application {
     private InitializeGraph graph;
 
     private BorderPane graphGrid;
-    private FlowPane graphLoaderButtons;
     private Group graphGroup = new Group();
     private ObservableList<javafx.scene.Node> observableList = graphGroup.getChildren();
 
@@ -49,40 +48,20 @@ public class NodeDisplay extends Application {
     }
 
     private void startScene() {
-        //GraphLoader graphLoader = new GraphLoader();
         graph = new InitializeGraph();
         graph.graphInitialization("default");
-        //graphList = graphLoader.graphList("Fire_Agents/graphs");
 
-        graphLoaderButtons = new FlowPane();
-        graphLoaderButtons.setAlignment(Pos.CENTER);
-        Label changeGraph = new Label("Graph Options:   ");
-        FlowPane graphSelector = new FlowPane();
-        graphSelector.setAlignment(Pos.CENTER);
-
-        RadioButton getGraphs = new RadioButton("Get Graph Options");
-//        getGraphs.setOnAction(event -> {
-//            graphLoaderButtons.getChildren().clear();
-//            loadGraph(graphList);
-//        });
-
-        RadioButton startNodes = new RadioButton("Start Fire!");
+        Button startNodes = new Button("Start Fire!");
         startNodes.setOnAction(event -> {
-            graphLoaderButtons.getChildren().clear();
             startNodeThreads();
         });
-
-        ToggleGroup optionsGroup = new ToggleGroup();
-        startNodes.setToggleGroup(optionsGroup);
-        getGraphs.setToggleGroup(optionsGroup);
-        graphSelector.getChildren().addAll(changeGraph, getGraphs, startNodes);
 
         makeGraph();
 
         graphGrid = new BorderPane();
-        graphGrid.setTop(graphGroup);
-        //graphGrid.setCenter(graphLoaderButtons);
-        //graphGrid.setBottom(graphSelector);
+        graphGrid.setCenter(graphGroup);
+        graphGrid.setBottom(startNodes);
+
 
         Scene background = new Scene(graphGrid, 1000, 1000);
         window.setResizable(false);
@@ -137,6 +116,29 @@ public class NodeDisplay extends Application {
         startButton.setOnAction(event -> {
             graph.startThreads();
         });
+    }
+
+    private void neighborLabel() {
+        LinkedList<Node> nodes;
+        LinkedList<Edge> edges;
+        LinkedList<Node> neighbors;
+        InitializeGraph graph;
+
+        graph = new InitializeGraph();
+        graph.graphInitialization("default");
+
+        nodes = graph.getNodes();
+        edges = graph.getEdges();
+
+        for(Node tempNode : nodes) {
+            System.out.println("Name of Node");
+            System.out.println(tempNode.getName());
+            neighbors = tempNode.getNeighbors();
+            System.out.println("Starting Neighbors");
+            for(Node tempNode2 : neighbors) {
+                System.out.println(tempNode2.getName());
+            }
+        }
     }
 
 }
