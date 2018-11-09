@@ -4,8 +4,8 @@ import java.util.LinkedList;
 
 public class InitializeNodes {
 
-    public int largestRow;
-    public int largestCol;
+    public int largestRow = 0;
+    public int largestCol = 0;
     public LinkedList<Node> nodes;
     public LinkedList<Edge> edges;
 
@@ -18,8 +18,6 @@ public class InitializeNodes {
     public void initializeGraph(String mapFile) {
         nodes = new LinkedList<>();
         edges = new LinkedList<>();
-        largestCol = 0;
-        largestRow = 0;
         TextFileReader textReader = new TextFileReader();
         LinkedList<String> fileLines = textReader.FileToList(mapFile);
         for (String line : fileLines) {
@@ -64,6 +62,12 @@ public class InitializeNodes {
      */
     public void buildNeighborLists() {
         for (Node tempNode : nodes) {
+            if(tempNode.getX() > largestRow) {
+                largestRow = tempNode.getX();
+            }
+            if(tempNode.getY() > largestCol) {
+                largestCol = tempNode.getY();
+            }
             for (Edge tempEdge : edges) {
                 if ((tempNode.getX() == tempEdge.getStartX()) && (tempNode.getY() == tempEdge.getStartY())) {
                     for (Node tempNode2 : nodes) {
