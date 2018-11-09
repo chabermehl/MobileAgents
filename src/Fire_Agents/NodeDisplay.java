@@ -74,7 +74,7 @@ public class NodeDisplay extends Application {
     private void updateShiz()
     {
         for(Node n : nodes) {
-            Circle circle = new Circle(10);
+            Circle circle = new Circle(15);
             circle.setCenterX((n.getX() + 10) * 100);
             circle.setCenterY((n.getY() + 10) * 100);
             if (n.getName().equals("HomeBase")) {
@@ -83,6 +83,9 @@ public class NodeDisplay extends Application {
                 circle.setFill(Color.RED);
             } else if (n.getState().equals(Node.State.DANGER)) {
                 circle.setFill(Color.YELLOW);
+            }
+            else if (n.hasAgent()) {
+                circle.setFill(Color.BLACK);
             } else {
                 circle.setFill(Color.GREEN);
             }
@@ -108,7 +111,7 @@ public class NodeDisplay extends Application {
         graphGrid.setRight(neighborPane);
 
 
-        Scene background = new Scene(graphGrid, 800, 800);
+        Scene background = new Scene(graphGrid, 1000, 1000);
         window.setResizable(false);
         window.setScene(background);
         //graph.startThreads();
