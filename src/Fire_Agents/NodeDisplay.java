@@ -62,7 +62,6 @@ public class NodeDisplay extends Application {
                 if(seconds >= stepSpeed)
                 {
                     updateShiz();
-                    System.out.println("Updatinig this shiz");
                     startTime = -1;
                 }
             }
