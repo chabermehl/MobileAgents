@@ -361,6 +361,12 @@ public class Node extends MessageProcessor implements Runnable {
         return null;
     }
 
+    public LinkedList<Node> getNeighborNames() {
+        LinkedList<Node> neighborNames = new LinkedList<>();
+        neighborNames.addAll(neighbors);
+        return neighborNames;
+    }
+
     /**
      * says whether there is an agent on the node or not
      * @return boolean representing the state
