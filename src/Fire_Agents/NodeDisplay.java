@@ -18,8 +18,9 @@ import javafx.stage.Stage;
 import java.time.Duration;
 import java.util.LinkedList;
 
-/*
-GUI code goes here
+/**
+ * this class handles calling of node initializations and building the GUI based
+ * on them
  */
 public class NodeDisplay extends Application {
 
@@ -44,10 +45,10 @@ public class NodeDisplay extends Application {
         window.setTitle("Mobile Agents");
         startScene();
 
-
         double frameRate = 1;
         double stepSpeed = 1.0 / frameRate;
         // Start our core game loop
+        //animation timer to update nodes on gui
         AnimationTimer a = new AnimationTimer() {
             private long startTime = -1;
 
@@ -69,6 +70,9 @@ public class NodeDisplay extends Application {
         a.start();
     }
 
+    /**
+     * updates the nodes on the GUI based on current state
+     */
     private void updateGUI() {
         for (Node n : nodes) {
             Circle circle = new Circle(15);
@@ -91,6 +95,9 @@ public class NodeDisplay extends Application {
         }
     }
 
+    /**
+     * handles all the pieces of the GUI
+     */
     private void startScene() {
         graph = new InitializeGraph();
         graph.graphInitialization("default");
@@ -118,6 +125,9 @@ public class NodeDisplay extends Application {
         window.show();
     }
 
+    /**
+     * builds the node graph with all the edges.
+     */
     private void makeGraph() {
         nodes = graph.getNodes();
         for (Node tempNode : nodes) {
@@ -140,6 +150,9 @@ public class NodeDisplay extends Application {
         }
     }
 
+    /**
+     * creates the label on the right hand side that shows the neighbors each node has
+     */
     private void neighborLabel() {
         LinkedList<Node> nodes;
         LinkedList<Node> neighbors;
