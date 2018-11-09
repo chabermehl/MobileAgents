@@ -67,6 +67,7 @@ public class NodeDisplay extends Application {
         RadioButton startNodes = new RadioButton("Start Fire!");
         startNodes.setOnAction(event -> {
             graphLoaderButtons.getChildren().clear();
+            startNodeThreads();
         });
 
         ToggleGroup optionsGroup = new ToggleGroup();
@@ -95,6 +96,13 @@ public class NodeDisplay extends Application {
             graphLoaderButtons.setPadding(new Insets(0, 10, 0, 10));
             graphLoaderButtons.getChildren().add(button);
         }
+    }
+
+    private void startNodeThreads() {
+        Button startButton = new Button("Start Fire!");
+        startButton.setOnAction(event -> {
+            graph.startThreads();
+        });
     }
 
 }
