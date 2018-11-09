@@ -71,7 +71,7 @@ public class NodeDisplay extends Application {
     private void makeGraph() {
         nodes = graph.getNodes();
         for (Node tempNode : nodes) {
-            Circle circle = new Circle(10);
+            Circle circle = new Circle(15);
             circle.setCenterX((tempNode.getX() + 10) * 100);
             circle.setCenterY((tempNode.getY() + 10) * 100);
             if (tempNode.getName().equals("HomeBase")) {
@@ -88,7 +88,6 @@ public class NodeDisplay extends Application {
             }
             observableList.add(circle);
         }
-
     }
 
     private void neighborLabel() {
