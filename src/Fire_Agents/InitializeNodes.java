@@ -25,8 +25,16 @@ public class InitializeNodes {
                 HomeBase station = new HomeBase(Integer.parseInt(lines[1]), Integer.parseInt(lines[2]));
                 nodes.add(station);
             } else if ("node".equals(lines[0])) {
-                Node node = new Node(Integer.parseInt(lines[1]), Integer.parseInt(lines[2]));
-                nodes.add(node);
+                boolean alreadySet = false;
+                for(Node testNode : nodes) {
+                    if(testNode.getX() == Integer.parseInt(lines[1]) && testNode.getY() == Integer.parseInt(lines[2])) {
+                        alreadySet = true;
+                    }
+                }
+                if(!alreadySet) {
+                    Node node = new Node(Integer.parseInt(lines[1]), Integer.parseInt(lines[2]));
+                    nodes.add(node);
+                }
             } else if ("edge".equals(lines[0])) {
                 Edge edge = new Edge(Integer.parseInt(lines[1]), Integer.parseInt(lines[2]), Integer.parseInt(lines[3]), Integer.parseInt(lines[4]));
                 edges.add(edge);
@@ -37,7 +45,7 @@ public class InitializeNodes {
                 } else {
                     boolean notFound = true;
                     for (Node tempNode : nodes) {
-                        if ((tempNode.getX() == Integer.parseInt(lines[1])) && (tempNode.getY() == Integer.parseInt(lines[2])) && (notFound)) {
+                        if ((tempNode.getX() == Integer.parseInt(lines[1])) && (tempNode.getY() == Integer.parseInt(lines[2]))) {
                             tempNode.setStartingState(Node.State.FIRE);
                             notFound = false;
                         }
