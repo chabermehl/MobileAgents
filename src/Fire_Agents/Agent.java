@@ -8,8 +8,8 @@ public class Agent extends MessageProcessor implements Runnable {
     private static int agentCount = 0;
 
     public Agent(Node startingNode) {
-        agentCount++;
-        name = "Agent_" + agentCount;
+        incAgentCount();
+        name = "Agent_" + getAgentCount();
         currentNode = startingNode;
         lastNodeVisited = currentNode.getName();
     }
@@ -47,4 +47,8 @@ public class Agent extends MessageProcessor implements Runnable {
                 break;
         }
     }
+
+    // Create synchronized methods for the agent since several could be made at the same time
+    private synchronized void incAgentCount() {agentCount++;}
+    private synchronized int getAgentCount() {return agentCount;}
 }

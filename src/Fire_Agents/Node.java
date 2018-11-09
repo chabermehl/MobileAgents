@@ -1,5 +1,6 @@
 package Fire_Agents;
 import java.util.LinkedList;
+import java.util.Random;
 
 // TODO: Forward "Create Agent Messages" to home base
 // Maybe each node that's created hold the X Y values of the homebase and
@@ -166,19 +167,41 @@ public class Node extends MessageProcessor implements Runnable {
      */
     protected void moveAgent()
     {
+        if(agent == null) { return; }
         Node nodeToMoveTo = null;
+
         // Get all neighbors and move the agent to the neighbor that's yellow or is closest
         for(Node n : neighbors) {
-            if(!n.hasAgent() && n.getState() == State.DANGER) {
+            if (!n.hasAgent() && n.getState() == State.DANGER) {
                 nodeToMoveTo = n;
                 break;
             }
-            else if(n.getState() != State.FIRE && !n.hasAgent() &&
-                !agent.getLastNodeVisited().equals(n.getName())) {
-                nodeToMoveTo = n;
-            }
         }
-        // Send agent new message and wait for it to
+
+        // Search for and add all nodes that haven't been visited yet and aren't red.
+        if(nodeToMoveTo == null && neighbors.size() > 1){
+            LinkedList<Node> list = new LinkedList<>();
+            for(Node n : neighbors) {
+                if(!n.hasAgent() && !agent.getName().equals(n.getName()) &&
+                        n.getState() != State.FIRE) {
+                    list.add(n);
+                }
+            }
+            // Pick a random node out of these to try next
+            Random rand = new Random();
+            int ranNodeIndex = rand.nextInt(list.size());
+            nodeToMoveTo = list.get(ranNodeIndex);
+        }
+        else if(nodeToMoveTo == null && neighbors.size() == 1 &&
+                !neighbors.get(0).getName().equals(agent.getLastNodeVisited())){
+                nodeToMoveTo = neighbors.get(0);
+        }
+        // Go back to previous node if no others are available
+        else if(nodeToMoveTo == null) {
+            nodeToMoveTo = getNeighborByName(agent.getLastNodeVisited());
+        }
+
+        // Send agent new message and wait for it to pick up this agent
         if (nodeToMoveTo != null && agent != null) {
             System.out.println(this.getName() + " moving agent to " + nodeToMoveTo.getName());
             sendMessage(new Message(Message.MessageType.TRAVERSE_AGENT, this.name), nodeToMoveTo);
