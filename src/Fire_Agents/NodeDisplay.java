@@ -61,7 +61,7 @@ public class NodeDisplay extends Application {
                 double seconds = elapsed.toMillis() / 1000.0;
                 if(seconds >= stepSpeed)
                 {
-                    updateShiz();
+                    updateGUI();
                     startTime = -1;
                 }
             }
@@ -70,7 +70,7 @@ public class NodeDisplay extends Application {
         a.start();
     }
 
-    private void updateShiz()
+    private void updateGUI()
     {
         for(Node n : nodes) {
             Circle circle = new Circle(15);
