@@ -43,10 +43,6 @@ public class NodeDisplay extends Application {
 
     }
 
-    private void sendAgentOnGraph() {
-
-    }
-
     private void makeGraph(String mapFile) {
         graph.graphInitialization(mapFile);
     }
