@@ -62,9 +62,9 @@ public class NodeDisplay extends Application {
 
 
         Scene background = new Scene(graphGrid, 1000, 1000);
-        //window.setResizable(false);
+        window.setResizable(false);
         window.setScene(background);
-        graph.startThreads();
+        //graph.startThreads();
         window.show();
     }
 
@@ -77,14 +77,11 @@ public class NodeDisplay extends Application {
             System.out.println(tempNode.getX());
             System.out.println(tempNode.getY());
             if (tempNode.getName().equals("HomeBase")) {
-                System.out.println("BLUE");
                 circle.setFill(Color.BLUE);
             } else if (tempNode.getState().equals(Node.State.FIRE)) {
                 circle.setFill(Color.YELLOW);
-                System.out.println("RED");
             } else {
                 circle.setFill(Color.GREEN);
-                System.out.println("GREEN");
             }
             neighbors = tempNode.getNeighbors();
             for (Node neighbor : neighbors) {
