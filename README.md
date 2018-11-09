@@ -17,8 +17,13 @@ and spreads throughout it.
 ## Usage
 Double-click the jar file.
 
+Node Display is the entry point for the GUI.
+Main has some test code in it, uncomment for threading or cheching node initialization
+
 ## Project Assumptions
-This section is where you put any clarifications about your project & how it works concerning any vagueness in the specification documents.
+Fire spreads evenly based on time. Agents are not bound to a time restraint for movement. 
+The config file will have a reasonalbe amount of nodes in it. Less than 50.
+
 
 ## Jar file 
 The jar file is located in the root directory of the project.
@@ -28,7 +33,16 @@ Check out the [documentation](../doc/doc.MD) file for that sweet, sweet info.
 
 ## Status
 ### Implemented Features
-Most of the things work. 
+GUI displays spread of fire, movement of agents and death of nodes. 
+Node list with neighbors placed on right hand side
+Button that starts the simulation placed on bottom of screen. 
 
 ### Known Issues
-We'll find out if there are any soon
+Agents sometimes don't surround the fire properly.
+Agent sometimes gets stuck and stops on first node encountered. 
+Only able to change config file manually in the source code. 
+
+### Features We Would Improve
+Loading multiple config files to be able to pick and chose without changing source
+code.
+Better GUI/thread updating.
