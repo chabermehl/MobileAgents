@@ -2,33 +2,28 @@
 ## Students:  Alexander Booher, Charles Habermehl
 
 ## Introduction
-This program runs the "Fire Agent" simulatiion, where a fire starts on a node in a directed graph
-and spreads throught it. The simulation runs until the home base is destroyed in the fire.
+This program runs the "Fire Agent" simulation, where a fire starts on a node in a directed graph
+and spreads throughout it. The simulation runs until the fire eventually spreads to the base station and destroys it.
 
 ## Contributions
 - Charles worked on the front-end
 - Alex Worked on the backend.
 
 ## Usage
-Click the thang
+Double-click the jar file.
 
 ## Project Assumptions
 This section is where you put any clarifications about your project & how it works concerning any vagueness in the specification documents.
 
-## Versions 
-Where are the .jar files?
-### V1
-explain about how version 1 works
+## Jar file 
+The jar file is located in the root directory of the project.
 
 ## Docs
 What folder is your documentation (diagram and class diagram) in?
 
 ## Status
 ### Implemented Features
-State things that work.
+Most of the things work. 
 
 ### Known Issues
 If there are things that don't work put them here. It will save the graders time and keep them in a good mood.
-
-## Testing and Debugging
-If you have tests, then explain how they work and how to use them.
