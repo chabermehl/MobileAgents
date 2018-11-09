@@ -2,9 +2,8 @@ package Fire_Agents;
 
 import java.util.LinkedList;
 
-/*
-just gonna use this file to instantiate our gui so we can have multiple instances
-also could be used to test if everything is working.
+/**
+ * ALL TEST CODE HERE
  */
 
 public class Main {
