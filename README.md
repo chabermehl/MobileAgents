@@ -34,7 +34,7 @@ Check out the [documentation](../doc/doc.MD) file for that sweet, sweet info.
 ## Status
 ### Implemented Features
 GUI displays spread of fire, movement of agents and death of nodes. 
-Node list with neighbors placed on right hand side
+Node list with neighbors placed on right hand side.
 Button that starts the simulation placed on bottom of screen. 
 
 ### Known Issues
