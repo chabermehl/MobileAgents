@@ -1,6 +1,7 @@
 package Fire_Agents;
 
 import javafx.application.Application;
+
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -16,6 +17,7 @@ public class NodeDisplay extends Application {
     private LinkedList<Edge> edges;
     private LinkedList<String> graphList;
     private InitializeGraph graph;
+
 
 
     public static void main(String[] args) {
@@ -41,5 +43,11 @@ public class NodeDisplay extends Application {
     private void sendAgentOnGraph() {
 
     }
+
+    private void makeGraph(String mapFile) {
+        graph.graphInitialization(mapFile);
+    }
+
+
 
 }
