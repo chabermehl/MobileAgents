@@ -21,6 +21,7 @@ public class InitializeNodes {
         LinkedList<String> fileLines = textReader.FileToList(mapFile);
         for (String line : fileLines) {
             String[] lines = line.split(" ");
+            System.out.println(lines[0]);
             for (int i = 0; i < lines.length; i++) {
                 if ("station".equals(lines[0])) {
                     HomeBase station = new HomeBase(Integer.parseInt(lines[1]), Integer.parseInt(lines[2]));

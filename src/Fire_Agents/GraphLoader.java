@@ -1,31 +1,17 @@
 package Fire_Agents;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.LinkedList;
 
 public class GraphLoader {
-    public LinkedList<String> graphList(String path) {
-        LinkedList<String> list  = new LinkedList<>();
-        String resource;
-        try{
-            InputStream in = getResourcesAsStream(path);
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
-            while((resource = bufferedReader.readLine()) != null) {
-                list.add(resource);
-            }
-        }
-        catch (IOException ex) {
-            ex.printStackTrace();
-        }
+    public LinkedList<String> graphList(final File folder) {
+        LinkedList<String> list = new LinkedList<>();
+        //add new config files here
+        //list.add(<config file>
+        list.add("default");
+
         return list;
-    }
-
-    private InputStream getResourcesAsStream(String resource) {
-        final InputStream in = getContextClassLoader().getResourceAsStream(resource);
-        return in == null ? getClass().getResourceAsStream(resource) : in;
-    }
-
-    private ClassLoader getContextClassLoader() {
-        return Thread.currentThread().getContextClassLoader();
     }
 }

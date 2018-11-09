@@ -48,8 +48,9 @@ public class NodeDisplay extends Application {
     private void startScene() {
         GraphLoader graphLoader = new GraphLoader();
         graph = new InitializeGraph();
-        graph.graphInitialization("default");
-        graphList = graphLoader.graphList("Fire_Agents/graphs");
+        graph.graphInitialization("graphs/default");
+        final File folder = new File(getClass().getClassLoader().getResource("graphs").getFile());
+        graphList = graphLoader.graphList(folder);
 
         graphLoaderButtons = new FlowPane();
         graphLoaderButtons.setAlignment(Pos.CENTER);
