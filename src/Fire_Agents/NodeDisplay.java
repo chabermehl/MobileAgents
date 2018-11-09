@@ -27,7 +27,6 @@ public class NodeDisplay extends Application {
 
     private Stage window;
     private LinkedList<Node> nodes;
-    private LinkedList<Edge> edges;
     private LinkedList<Node> neighbors;
     //private LinkedList<String> graphList;
     private InitializeGraph graph;
@@ -93,7 +92,6 @@ public class NodeDisplay extends Application {
 
     private void makeGraph() {
         nodes = graph.getNodes();
-        edges = graph.getEdges();
         for(Node tempNode : nodes) {
             Circle circle = new Circle(10);
             circle.setCenterX((tempNode.getX()+10)*100);
