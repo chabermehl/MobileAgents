@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Fire_Agents:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Fire_Agents_jar</output-path>
+    <root id="archive" name="Fire_Agents.jar">
+      <element id="module-output" name="Fire_Agents" />
+      <element id="module-source" name="Fire_Agents" />
+      <element id="file-copy" path="$PROJECT_DIR$/graphs/default" />
+    </root>
+  </artifact>
+</component>
