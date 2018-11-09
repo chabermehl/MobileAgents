@@ -8,8 +8,10 @@
 <img src="https://i.postimg.cc/NFzRCpYx/Messaging-Diagram.png" alt="drawing" width="700"/>
 
 All nodes run on their own threads, and so do agents.
+- The NodeDisplay class queries nodes for their state periodically and updates the canvas
+- Uses gui to instruct when the InitializeGraph class should start running the simulation via button press
 
-
+<img src=https://i.postimg.cc/4NT43TfG/Running-Program.png alt="drawing" width="700"/>
 
 ### Node Class Structure
 - The Node class runs on its own thread, and is always in one of three states: **Fire**, **Danger**, and **Safe**.
@@ -54,6 +56,6 @@ All nodes run on their own threads, and so do agents.
 - Messages can optionally include data that needs to be cast correctly when being read.
 - MessageProcessors all use a LinkedBlockingQueue to store messages. They are processed within the run method.
 
-## Loading Graphs
+## Loading Graphs and Initializing Nodes
 - Graphs are loaded using the **TextFileReader** class in conjunction with the **GraphLoader** class.
 - Nodes are initialized by utilizing the **InitializeGraph** class and **InitializeNodes** classes
