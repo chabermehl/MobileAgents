@@ -15,8 +15,10 @@ public class HomeBase extends Node {
 
     private HashMap<String, String> agentMap = new HashMap<>();
 
-    public HomeBase() {
+    public HomeBase(int x, int y) {
         super();
+        setX(x);
+        setY(y);
         setName("HomeBase");
     }
 

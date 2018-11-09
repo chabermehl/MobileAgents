@@ -28,9 +28,7 @@ public class Node extends MessageProcessor implements Runnable {
     /**
      * added so we can extend node on our HomeBase
      */
-    public Node()
-    {
-    }
+    public Node() {}
 
     /**
      * creates a node with a position, initialized states and that nodes neighbors
@@ -60,8 +58,6 @@ public class Node extends MessageProcessor implements Runnable {
     public void setStartingState(State state) {
         this.startingState = state;
     }
-
-
 
     @Override
     public void run() {

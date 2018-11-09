@@ -28,9 +28,7 @@ public class InitializeNodes {
             String[] lines = line.split(" ");
             for (int i = 0; i < lines.length; i++) {
                 if ("station".equals(lines[0])) {
-                    HomeBase station = new HomeBase();
-                    station.setX(Integer.parseInt(lines[1]));
-                    station.setY(Integer.parseInt(lines[2]));
+                    HomeBase station = new HomeBase(Integer.parseInt(lines[1]), Integer.parseInt(lines[2]));
                     nodes.add(station);
                 } else if ("node".equals(lines[0])) {
                     Node node = new Node(Integer.parseInt(lines[1]), Integer.parseInt(lines[2]));

@@ -12,7 +12,7 @@ public class Main {
 
     public static void main(String[] args) {
         // Create test nodes
-        HomeBase homeBase = new HomeBase();
+        HomeBase homeBase = new HomeBase(0,0);
         Node node1 = new Node(2,0);
         Node node2 = new Node(4,0);
         Node node3 = new Node (6,0, Node.State.FIRE);
@@ -26,17 +26,19 @@ public class Main {
         node3.addNeighbor(node4);
 
         // Create threads
-        Thread homeBaseThread = new Thread(homeBase);
         Thread nodeThread1 = new Thread(node1);
         Thread nodeThread2 = new Thread(node2);
         Thread nodeThread3 = new Thread(node3);
         Thread nodeThread4 = new Thread(node4);
+        Thread homeBaseThread = new Thread(homeBase);
+
 
         // Start node threads
-        homeBaseThread.start();
         nodeThread1.start();
         nodeThread2.start();
         nodeThread3.start();
         nodeThread4.start();
+        homeBaseThread.start();
+
     }
 }
