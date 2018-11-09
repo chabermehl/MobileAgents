@@ -4,7 +4,6 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -97,7 +96,10 @@ public class NodeDisplay extends Application {
         graph.graphInitialization("default");
 
         Button startNodes = new Button("Start Fire!");
-        startNodes.setAlignment(Pos.CENTER);
+        startNodes.setPrefSize(200, 100);
+        startNodes.setStyle("-fx-background-color: red;" +
+                "-fx-text-fill: black;" +
+                "-fx-border-color: black;");
         startNodes.setOnAction(event -> {
             graph.startThreads();
         });
