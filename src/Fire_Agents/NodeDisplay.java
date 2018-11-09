@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -78,6 +79,11 @@ public class NodeDisplay extends Application {
         graphGrid.setTop(graphGroup);
         graphGrid.setCenter(graphLoaderButtons);
         graphGrid.setBottom(graphSelector);
+
+        Scene background = new Scene(graphGrid, 1000, 1000);
+        window.setResizable(false);
+        window.setScene(background);
+        window.show();
 
     }
 
