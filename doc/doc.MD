@@ -8,7 +8,8 @@
 <img src="https://i.postimg.cc/NFzRCpYx/Messaging-Diagram.png" alt="drawing" width="700"/>
 
 All nodes run on their own threads, and so do agents.
-The Base Station inherits from node and has some extra functionality.
+
+
 
 ### Node Class Structure
 - The Node class runs on its own thread, and is always in one of three states: **Fire**, **Danger**, and **Safe**.
@@ -47,8 +48,12 @@ The Base Station inherits from node and has some extra functionality.
 - **getName**: Returns the name of the agent
 - **String getLastNodeVisited**: Returns the name of the last node that this agent traversed
 
-# Sending Messages (MessageProcessor)
+## Sending Messages (MessageProcessor)
 - Node (and by extension HomeBase) and Agent all extend the **MessageProcessor** class.
 - MessageProcessors can send messages back and forth to each other with different message types.
 - Messages can optionally include data that needs to be cast correctly when being read.
 - MessageProcessors all use a LinkedBlockingQueue to store messages. They are processed within the run method.
+
+## Loading Graphs
+- Graphs are loaded using the **TextFileReader** class in conjunction with the **GraphLoader** class.
+- Nodes are initialized by utilizing the **InitializeGraph** class and **InitializeNodes** classes
