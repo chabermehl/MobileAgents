@@ -13,6 +13,7 @@ public class Node extends MessageProcessor implements Runnable {
         SAFE
     }
 
+
     // Initialized variables for constructor
     private String name = "";
     private int x = 0;
@@ -21,6 +22,7 @@ public class Node extends MessageProcessor implements Runnable {
     private State startingState = State.SAFE;
     private LinkedList<Node> neighbors = new LinkedList<>();
     private Agent agent = null;
+    private boolean leadsToBase = false;
 
     // Static variable used for giving nodes unique names
     private static int nodeCount = 0;
@@ -137,7 +139,7 @@ public class Node extends MessageProcessor implements Runnable {
 
             case CREATE_AGENT:
                 // Forward the message to nodes that are close to home base
-                System.out.println(("An agent is needing to be created"));
+                forwardMessageTowardBase(message);
                 break;
 
             case TRAVERSE_AGENT:
@@ -145,7 +147,9 @@ public class Node extends MessageProcessor implements Runnable {
                 Node sender = getNeighborByName(message.getSender());
                 grabAgent(sender);
                 if(state == State.DANGER) {
-                    // Clone this agent
+                    // Clone this agent. Also, send a message back toward base
+                    forwardMessageTowardBase(new Message(Message.MessageType.CREATE_AGENT,
+                            getName(), agent.getName(), getName()));
                     cloneAgent();
                 }
                 else if(state == State.SAFE) {
@@ -160,7 +164,6 @@ public class Node extends MessageProcessor implements Runnable {
         }
     }
 
-    // TODO: Handle agents with nowhere to go? make sure threads don't mess up agents being moved if
     /**
      * Moves the agent attached to this node to a new node, prioritizing
      * nodes that are in danger
@@ -215,7 +218,7 @@ public class Node extends MessageProcessor implements Runnable {
     protected void grabAgent(Node from)
     {
         if(from != null && from.agent != null) {
-            this.agent = from.agent;
+            setAgent(from.agent);
             from.agent = null;
             agent.setCurrentNode(this);
         }
@@ -267,11 +270,27 @@ public class Node extends MessageProcessor implements Runnable {
                 Agent agentClone = new Agent(n);
                 n.setAgent(agentClone);
                 System.out.println("Cloning " + agentClone.getName() + " from " + getName() + " to " + n.getName());
+                forwardMessageTowardBase(new Message(Message.MessageType.CREATE_AGENT,
+                        getName(), agentClone.getName(), n.getName()));
 
                 // If one of the nodes is yellow, make sure to keep cloning from that node
                 if(n.getState() == State.DANGER ) {
                     sendMessage(new Message(Message.MessageType.CLONE_AGENT, this.getName()), n);
                 }
+            }
+        }
+    }
+
+    /**
+     * Forwards the given message to a node that isn't the
+     * one that sent the message and leads to base
+     * @param message to forward
+     */
+    private void forwardMessageTowardBase(Message message) {
+        for(Node n : neighbors) {
+            if(n.getState() != State.FIRE && n.leadsToBase() && !n.getName().equals(message.getSender())) {
+                sendMessage(new Message(message.getMessageType(), getName(), message.getData()), n);
+                break;
             }
         }
     }
@@ -361,7 +380,10 @@ public class Node extends MessageProcessor implements Runnable {
      *                    False
      */
     synchronized protected void setAgent(Agent agent) {
-        if(agent != null) {this.agent = agent;}
+        if(agent != null) {
+            this.agent = agent;
+            leadsToBase = true;
+        }
     }
 
     /**
@@ -369,4 +391,9 @@ public class Node extends MessageProcessor implements Runnable {
      * @param name to set
      */
     protected void setName(String name) {this.name = name;}
+
+    /**
+     * @return whether this node connects to a path back to the base station
+     */
+    protected boolean leadsToBase() {return leadsToBase;}
 }

@@ -10,6 +10,7 @@ should we make a node interface instead?
  */
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class HomeBase extends Node {
 
@@ -64,7 +65,14 @@ public class HomeBase extends Node {
             case NODE_DIED:
                 setState(State.DANGER);
                 System.out.println("Home Base in danger.");
+                System.out.println("About to end with these nodes.");
+                for (Map.Entry<String, String> entry : agentMap.entrySet()) {
+                    System.out.println(entry.getKey() + ":" + entry.getValue());
+                }
                 break;
+            case CREATE_AGENT:
+                System.out.println("oi, we made an agent.");
+                addAgentInfo((String)message.getData()[0], (String)message.getData()[1]);
         }
     }
 
