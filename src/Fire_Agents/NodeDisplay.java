@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
@@ -43,16 +44,28 @@ public class NodeDisplay extends Application {
         graph.graphInitialization("graphs/default");
         final File folder = new File(getClass().getClassLoader().getResource("graphs").getFile());
         graphList = graphLoader.graphList(folder);
+
         graphLoaderButtons = new FlowPane();
         graphLoaderButtons.setAlignment(Pos.CENTER);
-        Label changeGraph = new Label("Graphs:   ");
+        Label changeGraph = new Label("Graph Options:   ");
         FlowPane graphSelector = new FlowPane();
         graphSelector.setAlignment(Pos.CENTER);
-        Button getGraphs = new Button("Get Graph Options");
+
+        RadioButton getGraphs = new RadioButton("Get Graph Options");
         getGraphs.setOnAction(event -> {
             graphLoaderButtons.getChildren().clear();
             loadGraph(graphList);
         });
+
+        RadioButton startNodes = new RadioButton("Start Fire!");
+        startNodes.setOnAction(event -> {
+            graphLoaderButtons.getChildren().clear();
+        });
+
+        ToggleGroup optionsGroup = new ToggleGroup();
+        startNodes.setToggleGroup(optionsGroup);
+        getGraphs.setToggleGroup(optionsGroup);
+        graphSelector.getChildren().addAll(changeGraph, getGraphs, startNodes);
 
     }
 
