@@ -37,8 +37,9 @@ public class HomeBase extends Node {
 
     /**
      * Adds an agent name and location to the list of created agents
+     *
      * @param agentName name of agent to add
-     * @param nodeName agent's location
+     * @param nodeName  agent's location
      */
     private void addAgentInfo(String agentName, String nodeName) {
         agentMap.put(agentName, nodeName);
@@ -46,22 +47,21 @@ public class HomeBase extends Node {
     }
 
     @Override
-    public void run()
-    {
+    public void run() {
         createAgent();
         super.run();
     }
 
     @Override
     protected void processMessage(Message message) {
-        if(getState() == State.FIRE || message == null) {
+        if (getState() == State.FIRE || message == null) {
             return;
         }
 
         System.out.println("HomeBase received message " + message.getMessageType() +
                 " from " + message.getSender());
 
-        switch(message.getMessageType()) {
+        switch (message.getMessageType()) {
             case NODE_DIED:
                 setState(State.DANGER);
                 System.out.println("Home Base in danger.");
@@ -72,7 +72,7 @@ public class HomeBase extends Node {
                 break;
             case CREATE_AGENT:
                 System.out.println("oi, we made an agent.");
-                addAgentInfo((String)message.getData()[0], (String)message.getData()[1]);
+                addAgentInfo((String) message.getData()[0], (String) message.getData()[1]);
         }
     }
 

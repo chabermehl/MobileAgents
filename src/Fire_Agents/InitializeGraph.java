@@ -11,6 +11,7 @@ public class InitializeGraph {
 
     /**
      * initializes graph based on config file that is passed in
+     *
      * @param fileName text file with node/edge definitions
      */
     public void graphInitialization(String fileName) {
@@ -27,7 +28,7 @@ public class InitializeGraph {
      * loops through the nodes list and creates and starts the threads
      */
     public void startThreads() {
-        for(Node tempNode : nodes) {
+        for (Node tempNode : nodes) {
             Thread threadedNode = new Thread(tempNode);
             //threadedNode.setDaemon(true);
             threadedNode.start();

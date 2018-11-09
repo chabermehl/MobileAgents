@@ -50,17 +50,16 @@ public class NodeDisplay extends Application {
         // Start our core game loop
         AnimationTimer a = new AnimationTimer() {
             private long startTime = -1;
+
             @Override
-            public void handle ( long now ) {
-                if(startTime < 0)
-                {
+            public void handle(long now) {
+                if (startTime < 0) {
                     startTime = now;
                 }
 
-                Duration elapsed = Duration.ofNanos (now - startTime );
+                Duration elapsed = Duration.ofNanos(now - startTime);
                 double seconds = elapsed.toMillis() / 1000.0;
-                if(seconds >= stepSpeed)
-                {
+                if (seconds >= stepSpeed) {
                     updateGUI();
                     startTime = -1;
                 }
@@ -70,9 +69,8 @@ public class NodeDisplay extends Application {
         a.start();
     }
 
-    private void updateGUI()
-    {
-        for(Node n : nodes) {
+    private void updateGUI() {
+        for (Node n : nodes) {
             Circle circle = new Circle(15);
             circle.setCenterX((n.getX() + 10) * 100);
             circle.setCenterY((n.getY() + 10) * 100);
@@ -82,8 +80,7 @@ public class NodeDisplay extends Application {
                 circle.setFill(Color.RED);
             } else if (n.getState().equals(Node.State.DANGER)) {
                 circle.setFill(Color.YELLOW);
-            }
-            else if (n.hasAgent()) {
+            } else if (n.hasAgent()) {
                 circle.setFill(Color.BLACK);
             } else {
                 circle.setFill(Color.GREEN);
@@ -144,7 +141,7 @@ public class NodeDisplay extends Application {
         LinkedList<Node> neighbors;
         LinkedList<String> neighborNames;
         neighborPane = new GridPane();
-        neighborPane.setPadding(new Insets(5,15,5,15));
+        neighborPane.setPadding(new Insets(5, 15, 5, 15));
         nodes = graph.getNodes();
         int totalNeighbors = 0;
         int counter = 0;
@@ -155,10 +152,10 @@ public class NodeDisplay extends Application {
             nodeName.setPrefSize(100, 25);
             neighborPane.add(nodeName, 0, totalNeighbors);
             totalNeighbors += neighbors.size();
-            for(String str : neighborNames) {
+            for (String str : neighborNames) {
                 Label neighborName = new Label(str);
                 neighborName.setPrefSize(200, 25);
-                neighborPane.add(neighborName,1,counter);
+                neighborPane.add(neighborName, 1, counter);
                 counter++;
             }
 

@@ -26,12 +26,12 @@ public class InitializeNodes {
                 nodes.add(station);
             } else if ("node".equals(lines[0])) {
                 boolean alreadySet = false;
-                for(Node testNode : nodes) {
-                    if(testNode.getX() == Integer.parseInt(lines[1]) && testNode.getY() == Integer.parseInt(lines[2])) {
+                for (Node testNode : nodes) {
+                    if (testNode.getX() == Integer.parseInt(lines[1]) && testNode.getY() == Integer.parseInt(lines[2])) {
                         alreadySet = true;
                     }
                 }
-                if(!alreadySet) {
+                if (!alreadySet) {
                     Node node = new Node(Integer.parseInt(lines[1]), Integer.parseInt(lines[2]));
                     nodes.add(node);
                 }
@@ -67,10 +67,10 @@ public class InitializeNodes {
      */
     public void buildNeighborLists() {
         for (Node tempNode : nodes) {
-            if(tempNode.getX() > largestRow) {
+            if (tempNode.getX() > largestRow) {
                 largestRow = tempNode.getX();
             }
-            if(tempNode.getY() > largestCol) {
+            if (tempNode.getY() > largestCol) {
                 largestCol = tempNode.getY();
             }
             for (Edge tempEdge : edges) {

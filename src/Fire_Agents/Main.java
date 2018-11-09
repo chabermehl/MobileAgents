@@ -54,12 +54,12 @@ public class Main {
         largestCol = graph.getMaxCol();
         largestRow = graph.getMaxRow();
 
-        for(Node tempNode : nodes) {
+        for (Node tempNode : nodes) {
             System.out.println("Name of Node");
             System.out.println(tempNode.getName());
             neighbors = tempNode.getNeighbors();
             System.out.println("Starting Neighbors");
-            for(Node tempNode2 : neighbors) {
+            for (Node tempNode2 : neighbors) {
                 System.out.println(tempNode2.getName());
             }
         }
