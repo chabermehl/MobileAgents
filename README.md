@@ -3,7 +3,12 @@
 
 ## Introduction
 This program runs the "Fire Agent" simulation, where a fire starts on a node in a directed graph
-and spreads throughout it. The simulation runs until the fire eventually spreads to the base station and destroys it.
+and spreads throughout it.
+
+- A single agent is created at the start and navigates toward nodes that are close to catching fire.
+- It clones itself to all neighbors once it reaches a node.
+- As the fire spreads, agents keep cloning themselves to try and surround the fire
+- The simulation runs until the fire eventually spreads to the base station and destroys it.
 
 ## Contributions
 - Charles worked on the front-end
