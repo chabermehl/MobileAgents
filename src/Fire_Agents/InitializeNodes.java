@@ -21,37 +21,34 @@ public class InitializeNodes {
         LinkedList<String> fileLines = textReader.FileToList(mapFile);
         for (String line : fileLines) {
             String[] lines = line.split(" ");
-            //System.out.println(lines[0]);
-            for (int i = 0; i < lines.length; i++) {
-                if ("station".equals(lines[0])) {
-                    HomeBase station = new HomeBase(Integer.parseInt(lines[1]), Integer.parseInt(lines[2]));
-                    nodes.add(station);
-                } else if ("node".equals(lines[0])) {
-                    Node node = new Node(Integer.parseInt(lines[1]), Integer.parseInt(lines[2]));
+            if ("station".equals(lines[0])) {
+                HomeBase station = new HomeBase(Integer.parseInt(lines[1]), Integer.parseInt(lines[2]));
+                nodes.add(station);
+            } else if ("node".equals(lines[0])) {
+                Node node = new Node(Integer.parseInt(lines[1]), Integer.parseInt(lines[2]));
+                nodes.add(node);
+            } else if ("edge".equals(lines[0])) {
+                Edge edge = new Edge(Integer.parseInt(lines[1]), Integer.parseInt(lines[2]), Integer.parseInt(lines[3]), Integer.parseInt(lines[4]));
+                edges.add(edge);
+            } else if ("fire".equals(lines[0])) {
+                if (nodes.isEmpty()) {
+                    Node node = new Node(Integer.parseInt(lines[1]), Integer.parseInt(lines[2]), Node.State.FIRE);
                     nodes.add(node);
-                } else if ("edge".equals(lines[0])) {
-                    Edge edge = new Edge(Integer.parseInt(lines[1]), Integer.parseInt(lines[2]), Integer.parseInt(lines[3]), Integer.parseInt(lines[4]));
-                    edges.add(edge);
-                } else if ("fire".equals(lines[0])) {
-                    if (nodes.isEmpty()) {
-                        Node node = new Node(Integer.parseInt(lines[1]), Integer.parseInt(lines[2]), Node.State.FIRE);
-                        nodes.add(node);
-                    } else {
-                        boolean notFound = true;
-                        for (Node tempNode : nodes) {
-                            if ((tempNode.getX() == Integer.parseInt(lines[1])) && (tempNode.getY() == Integer.parseInt(lines[2])) && (notFound)) {
-                                tempNode.setStartingState(Node.State.FIRE);
-                                notFound = false;
-                            }
-                        }
-                        if (notFound) {
-                            Node node = new Node(Integer.parseInt(lines[1]), Integer.parseInt(lines[2]), Node.State.FIRE);
-                            nodes.add(node);
+                } else {
+                    boolean notFound = true;
+                    for (Node tempNode : nodes) {
+                        if ((tempNode.getX() == Integer.parseInt(lines[1])) && (tempNode.getY() == Integer.parseInt(lines[2])) && (notFound)) {
+                            tempNode.setStartingState(Node.State.FIRE);
+                            notFound = false;
                         }
                     }
-                } else {
-                    System.out.println("Invalid Config File\n");
+                    if (notFound) {
+                        Node node = new Node(Integer.parseInt(lines[1]), Integer.parseInt(lines[2]), Node.State.FIRE);
+                        nodes.add(node);
+                    }
                 }
+            } else {
+                System.out.println("Invalid Config File\n");
             }
         }
     }
