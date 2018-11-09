@@ -2,9 +2,6 @@ package Fire_Agents;
 import java.util.LinkedList;
 import java.util.Random;
 
-// TODO: Forward "Create Agent Messages" to home base
-// Maybe each node that's created hold the X Y values of the homebase and
-// sends each create agent message in that
 public class Node extends MessageProcessor implements Runnable {
 
     enum State {
@@ -12,7 +9,6 @@ public class Node extends MessageProcessor implements Runnable {
         DANGER,
         SAFE
     }
-
 
     // Initialized variables for constructor
     private String name = "";
