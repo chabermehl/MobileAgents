@@ -52,7 +52,15 @@ public class NodeDisplay extends Application {
     }
 
     private void loadGraph(LinkedList<String> list) {
-
+        for(String buttonName : list) {
+            Button button = new Button(buttonName);
+            button.setId(buttonName);
+            button.setOnAction(event -> {
+                makeGraph("graphs/" + button.getId());
+            });
+            graphLoader.setPadding(new Insets(0, 10, 0, 10));
+            graphLoader.getChildren().add(button);
+        }
     }
 
 }
