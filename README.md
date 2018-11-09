@@ -26,4 +26,4 @@ Check out the [documentation](../doc/doc.MD) file for that sweet, sweet info.
 Most of the things work. 
 
 ### Known Issues
-If there are things that don't work put them here. It will save the graders time and keep them in a good mood.
+We'll find out if there are any soon
