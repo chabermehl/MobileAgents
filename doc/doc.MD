@@ -22,6 +22,12 @@ The Base Station inherits from node and has some extra functionality.
 - **State getStartState**: Gets the state that the node will switch to once its thread is started.
 - **boolean addNeighbor(Node)**: Adds the given node as a neighbor. That node does the same.
 - **LinkedList<String> getNeighborNames**: Returns a list of names of each neighbor to this node.
+- **State getState**: Gets the current state that this node is in.
+- **int getX**: Gets the X coordinate of this node.
+- **int getY**: Gets the Y coordinate of this node.
+- **void setX**: Sets the X coordinate of this node.
+- **void setY**: Sets the Y coordinate of this node.
+- **String getName**: Returns the name of this node.
 
 ### HomeBase Class Structure
 - The HomeBase class extends Node with some extra functionality.
@@ -29,3 +35,14 @@ The Base Station inherits from node and has some extra functionality.
 - It holds a HashMap of Agent names corrosponding with node names to keep track of agents that have been created. 
 
 <img src=https://i.postimg.cc/43FJxbjr/HomeBase.png alt="drawing" width="250"/>
+
+### Agent Class Strucure
+- The agent is created to traverse nodes, searching for nodes that are in danger.
+- It is cloned to all surrounding nodes once it reaches a valid target.
+
+<img src=https://i.postimg.cc/6pCwC4Tm/Agent-Diagram.png alt="drawing" width="250"/>
+
+##### Methods
+- **void setCurrnetNode**: Sets the agent's node reference
+- **getName**: Returns the name of the agent
+- **String getLastNodeVisited**: Returns the name of the last node that this agent traversed
