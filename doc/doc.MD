@@ -11,7 +11,7 @@ All nodes run on their own threads, and so do agents.
 - The NodeDisplay class queries nodes for their state periodically and updates the canvas
 - Uses gui to instruct when the InitializeGraph class should start running the simulation via button press
 
-<img src=https://i.postimg.cc/4NT43TfG/Running-Program.png alt="drawing" width="700"/>
+<img src=https://i.postimg.cc/0yRSx43K/noice.png alt="drawing" width="700"/>
 
 ### Node Class Structure
 - The Node class runs on its own thread, and is always in one of three states: **Fire**, **Danger**, and **Safe**.
