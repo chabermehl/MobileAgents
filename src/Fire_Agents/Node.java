@@ -22,7 +22,7 @@ public class Node extends MessageProcessor implements Runnable {
 
     // Static variable used for giving nodes unique names
     private static int nodeCount = 0;
-    private final double fireSpreadRate = 2; // in seconds
+    private final double fireSpreadRate = 3; // in seconds
 
     /**
      * added so we can extend node on our HomeBase

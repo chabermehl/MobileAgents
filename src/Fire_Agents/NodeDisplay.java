@@ -4,6 +4,7 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -74,7 +75,9 @@ public class NodeDisplay extends Application {
             Circle circle = new Circle(15);
             circle.setCenterX((n.getX() + 10) * 100);
             circle.setCenterY((n.getY() + 10) * 100);
-            if (n.getName().equals("HomeBase")) {
+            if (n.getName().equals("HomeBase") && n.getState().equals(Node.State.FIRE)) {
+                circle.setFill(Color.ORANGE);
+            } else if (n.getName().equals("HomeBase")) {
                 circle.setFill(Color.BLUE);
             } else if (n.hasAgent()) {
                 circle.setFill(Color.BLACK);
@@ -94,6 +97,7 @@ public class NodeDisplay extends Application {
         graph.graphInitialization("default");
 
         Button startNodes = new Button("Start Fire!");
+        startNodes.setAlignment(Pos.CENTER);
         startNodes.setOnAction(event -> {
             graph.startThreads();
         });
