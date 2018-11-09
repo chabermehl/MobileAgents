@@ -57,6 +57,7 @@ public class Node extends MessageProcessor implements Runnable {
     public void setStartingState(State state) {
         this.startingState = state;
     }
+    public State getStartingState() {return this.startingState;}
 
     @Override
     public void run() {
