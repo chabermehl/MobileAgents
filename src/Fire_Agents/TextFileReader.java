@@ -11,7 +11,8 @@ public class TextFileReader {
         LinkedList<String> fileList = new LinkedList<>();
         String line;
         try{
-            InputStream file = getClass().getClassLoader().getResourceAsStream(fileName);
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            InputStream file = classLoader.getResourceAsStream(fileName);
             InputStreamReader fileReader = new InputStreamReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             while ((line = bufferedReader.readLine()) != null){
