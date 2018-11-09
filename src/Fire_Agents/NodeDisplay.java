@@ -74,8 +74,6 @@ public class NodeDisplay extends Application {
             Circle circle = new Circle(10);
             circle.setCenterX((tempNode.getX() + 10) * 100);
             circle.setCenterY((tempNode.getY() + 10) * 100);
-            System.out.println(tempNode.getX());
-            System.out.println(tempNode.getY());
             if (tempNode.getName().equals("HomeBase")) {
                 circle.setFill(Color.BLUE);
             } else if (tempNode.getState().equals(Node.State.FIRE)) {
