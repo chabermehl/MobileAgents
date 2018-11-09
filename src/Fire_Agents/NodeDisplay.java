@@ -48,8 +48,9 @@ public class NodeDisplay extends Application {
     private void startScene() {
         GraphLoader graphLoader = new GraphLoader();
         graph = new InitializeGraph();
-        graph.graphInitialization("graphs/default");
-        final File folder = new File(getClass().getClassLoader().getResource("graphs").getFile());
+        graph.graphInitialization("default");
+        ClassLoader classLoader = getClass().getClassLoader();
+        final File folder = new File(classLoader.getResource("graphs").getFile());
         graphList = graphLoader.graphList(folder);
 
         graphLoaderButtons = new FlowPane();
@@ -84,7 +85,6 @@ public class NodeDisplay extends Application {
         window.setResizable(false);
         window.setScene(background);
         window.show();
-
     }
 
     private void makeGraph(String mapFile) {
