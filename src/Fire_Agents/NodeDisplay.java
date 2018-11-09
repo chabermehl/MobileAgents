@@ -1,7 +1,9 @@
 package Fire_Agents;
 
 import javafx.application.Application;
-
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -18,6 +20,7 @@ public class NodeDisplay extends Application {
     private LinkedList<String> graphList;
     private InitializeGraph graph;
 
+    private FlowPane graphLoader;
 
 
     public static void main(String[] args) {
@@ -48,6 +51,8 @@ public class NodeDisplay extends Application {
         graph.graphInitialization(mapFile);
     }
 
+    private void loadGraph(LinkedList<String> list) {
 
+    }
 
 }
