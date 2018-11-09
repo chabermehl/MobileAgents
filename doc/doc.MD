@@ -58,4 +58,16 @@ All nodes run on their own threads, and so do agents.
 
 ## Loading Graphs and Initializing Nodes
 - Graphs are loaded using the **TextFileReader** class in conjunction with the **GraphLoader** class.
-- Nodes are initialized by utilizing the **InitializeGraph** class and **InitializeNodes** classes
+- Nodes are initialized by utilizing the **InitializeGraph** class and **InitializeNodes** classes.
+- **void initializeGraph**: Creates all of the nodes with their initial states as well as the edges.
+- **void buildNeighbors**: Creates the neighbor lists of each node.
+- **void graphInitialization**: Gets used as the initial point for calling **initializeGraph** and passing **InitializeNodes** a config file.
+- **void startThreads**: Threads all of the nodes and starts them. 
+
+## GUI and Dislplay
+- Gives a visual representation of the graph of nodes and their states as the simulation progresses.
+- Uses an animation timer to update the screen to display state changes of the nodes.
+- **void neighborLabel**: Creates a label that displays all of the nodes with their neighbors.
+- **void makeGraph**: Initializes and draws the circles for the nodes and lines for the edges.
+- **void startScene**: Function that is called to put all the elements onto the stage.
+- **void updateGUI**: Used to change the color of nodes when their state changes.
