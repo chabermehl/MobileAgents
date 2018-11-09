@@ -2,7 +2,10 @@ package Fire_Agents;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
@@ -20,7 +23,7 @@ public class NodeDisplay extends Application {
     private LinkedList<String> graphList;
     private InitializeGraph graph;
 
-    private FlowPane graphLoader;
+    private FlowPane graphLoaderButtons;
 
 
     public static void main(String[] args) {
@@ -40,6 +43,16 @@ public class NodeDisplay extends Application {
         graph.graphInitialization("graphs/default");
         final File folder = new File(getClass().getClassLoader().getResource("graphs").getFile());
         graphList = graphLoader.graphList(folder);
+        graphLoaderButtons = new FlowPane();
+        graphLoaderButtons.setAlignment(Pos.CENTER);
+        Label changeGraph = new Label("Graphs:   ");
+        FlowPane graphSelector = new FlowPane();
+        graphSelector.setAlignment(Pos.CENTER);
+        Button getGraphs = new Button("Get Graph Options");
+        getGraphs.setOnAction(event -> {
+            graphLoaderButtons.getChildren().clear();
+            loadGraph(graphList);
+        });
 
     }
 
@@ -54,8 +67,8 @@ public class NodeDisplay extends Application {
             button.setOnAction(event -> {
                 makeGraph("graphs/" + button.getId());
             });
-            graphLoader.setPadding(new Insets(0, 10, 0, 10));
-            graphLoader.getChildren().add(button);
+            graphLoaderButtons.setPadding(new Insets(0, 10, 0, 10));
+            graphLoaderButtons.getChildren().add(button);
         }
     }
 
