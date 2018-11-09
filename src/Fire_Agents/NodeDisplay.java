@@ -101,7 +101,11 @@ public class NodeDisplay extends Application {
     private void startScene() {
         graph = new InitializeGraph();
         graph.graphInitialization("default");
-
+        Label colorKey = new Label("Dead HomeBase = Orange\n" +
+                "Alive HomeBase = Blue\n" +
+                "Node Has Agent = Black\n" +
+                "Node In Danger = Yellow\n" +
+                "Node On Fire = Red");
         Button startNodes = new Button("Start Fire!");
         startNodes.setPrefSize(200, 100);
         startNodes.setStyle("-fx-background-color: red;" +
@@ -115,6 +119,7 @@ public class NodeDisplay extends Application {
         neighborLabel();
 
         graphGrid = new BorderPane();
+        graphGrid.setTop(colorKey);
         graphGrid.setCenter(graphGroup);
         graphGrid.setBottom(startNodes);
         graphGrid.setRight(neighborPane);
