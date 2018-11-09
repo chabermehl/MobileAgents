@@ -2,6 +2,11 @@ package Fire_Agents;
 import java.util.LinkedList;
 import java.util.Random;
 
+/**
+ * The node class represents the nodes on a graph. Each node can be in one
+ * of three states: FIRE, DANGER, and SAFE. When a node is in danger, there's
+ * only so much time before it turns red
+ */
 public class Node extends MessageProcessor implements Runnable {
 
     enum State {
@@ -165,7 +170,7 @@ public class Node extends MessageProcessor implements Runnable {
      * Moves the agent attached to this node to a new node, prioritizing
      * nodes that are in danger
      */
-    protected void moveAgent()
+    synchronized protected void moveAgent()
     {
         if(agent == null) { return; }
         Node nodeToMoveTo = null;
@@ -179,26 +184,28 @@ public class Node extends MessageProcessor implements Runnable {
         }
 
         // Search for and add all nodes that haven't been visited yet and aren't red.
-        if(nodeToMoveTo == null && neighbors.size() > 1){
+        if(nodeToMoveTo == null && neighbors.size() > 1) {
             LinkedList<Node> list = new LinkedList<>();
             for(Node n : neighbors) {
-                if(!n.hasAgent() && !agent.getName().equals(n.getName()) &&
+                if(!n.hasAgent() && !agent.getLastNodeVisited().equals(n.getName()) &&
                         n.getState() != State.FIRE) {
                     list.add(n);
                 }
             }
-            // Pick a random node out of these to try next
-            Random rand = new Random();
-            int ranNodeIndex = rand.nextInt(list.size());
-            nodeToMoveTo = list.get(ranNodeIndex);
+
+            if(list.size() == 0) {
+                nodeToMoveTo = getNeighborByName(agent.getLastNodeVisited());
+            }
+            else {
+                // Pick a random node out of these to try next
+                Random rand = new Random();
+                int ranNodeIndex = rand.nextInt(list.size());
+                nodeToMoveTo = list.get(ranNodeIndex);
+            }
         }
-        else if(nodeToMoveTo == null && neighbors.size() == 1 &&
-                !neighbors.get(0).getName().equals(agent.getLastNodeVisited())){
+        else if(nodeToMoveTo == null && neighbors.size() == 1){
+            // Go back the way we came
                 nodeToMoveTo = neighbors.get(0);
-        }
-        // Go back to previous node if no others are available
-        else if(nodeToMoveTo == null) {
-            nodeToMoveTo = getNeighborByName(agent.getLastNodeVisited());
         }
 
         // Send agent new message and wait for it to pick up this agent
@@ -212,11 +219,11 @@ public class Node extends MessageProcessor implements Runnable {
      * Grabs an agent from the given node
      * @param from node to take agent from
      */
-    protected void grabAgent(Node from)
+    synchronized protected void grabAgent(Node from)
     {
-        if(from != null && from.agent != null) {
-            setAgent(from.agent);
-            from.agent = null;
+        if(from != null && from.getAgent() != null) {
+            setAgent(from.getAgent());
+            from.removeAgent();
             agent.setCurrentNode(this);
         }
     }
@@ -240,7 +247,7 @@ public class Node extends MessageProcessor implements Runnable {
         switch(state) {
             case FIRE:
                 messageTypeToSend = Message.MessageType.NODE_DIED;
-                agent = null; // kill agent
+                removeAgent(); // kill agent
                 System.out.println("Node " + name + " died.");
                 break;
 
@@ -259,7 +266,7 @@ public class Node extends MessageProcessor implements Runnable {
     /**
      * Clones the current agent to any surrounding nodes
      */
-    private void cloneAgent() {
+    synchronized protected void cloneAgent() {
         // Check each neighbor and clone current agent to surrounding nodes (with new ID?)
         if(!hasAgent()) {return;}
         for(Node n : neighbors) {
@@ -283,7 +290,7 @@ public class Node extends MessageProcessor implements Runnable {
      * one that sent the message and leads to base
      * @param message to forward
      */
-    private void forwardMessageTowardBase(Message message) {
+    protected void forwardMessageTowardBase(Message message) {
         for(Node n : neighbors) {
             if(n.getState() != State.FIRE && n.leadsToBase() && !n.getName().equals(message.getSender())) {
                 sendMessage(new Message(message.getMessageType(), getName(), message.getData()), n);
@@ -391,6 +398,10 @@ public class Node extends MessageProcessor implements Runnable {
         }
     }
 
+    synchronized protected Agent getAgent() {return this.agent;}
+
+    synchronized protected void removeAgent() {agent = null;}
+
     /**
      * Sets the name of this node.
      * @param name to set
@@ -400,5 +411,5 @@ public class Node extends MessageProcessor implements Runnable {
     /**
      * @return whether this node connects to a path back to the base station
      */
-    protected boolean leadsToBase() {return leadsToBase;}
+    synchronized protected boolean leadsToBase() {return leadsToBase;}
 }

@@ -1,5 +1,9 @@
 package Fire_Agents;
 
+/**
+ * The agent class is used to traverse agents and surround the fire
+ * to simulate finding where the threat is
+ */
 public class Agent extends MessageProcessor implements Runnable {
 
     private String name;
@@ -14,18 +18,31 @@ public class Agent extends MessageProcessor implements Runnable {
         lastNodeVisited = currentNode.getName();
     }
 
-    public void setCurrentNode(Node node)
+    /**
+     * Sets the node that this agent is referencing
+     * also updates the last node it visited
+     * @param node to set as current.
+     */
+    synchronized public void setCurrentNode(Node node)
     {
         lastNodeVisited = currentNode.getName();
         currentNode = node;
     }
 
+    /**
+     * Returns the unique name of this agent
+     * @return name of this agent
+     */
     public String getName()
     {
         return name;
     }
 
-    public String getLastNodeVisited() {return lastNodeVisited;}
+    /**
+     * Gets the name of the last node that this agent visited
+     * @return name of the last node visited
+     */
+    synchronized public String getLastNodeVisited() {return lastNodeVisited;}
 
     @Override
     public void run() {

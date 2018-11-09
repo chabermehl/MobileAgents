@@ -73,6 +73,22 @@ public class HomeBase extends Node {
             case CREATE_AGENT:
                 System.out.println("oi, we made an agent.");
                 addAgentInfo((String) message.getData()[0], (String) message.getData()[1]);
+                break;
+            case TRAVERSE_AGENT:
+                // Grab an agent if possible, and keep moving it if needed
+                Node sender = getNeighborByName(message.getSender());
+                grabAgent(sender);
+                if(getState() == State.DANGER) {
+                    // Clone this agent. Also, send a message back toward base
+                    forwardMessageTowardBase(new Message(Message.MessageType.CREATE_AGENT,
+                            getName(), getAgent().getName(), getName()));
+                    cloneAgent();
+                }
+                else if(getState() == State.SAFE) {
+                    // Keep moving this agent
+                    moveAgent();
+                }
+                break;
         }
     }
 

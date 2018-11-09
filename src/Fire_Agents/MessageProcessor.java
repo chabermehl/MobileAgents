@@ -2,6 +2,10 @@ package Fire_Agents;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
+/**
+ * A message processor can send messages to other classes of that type.
+ * They can also optionally hold data.
+ */
 public abstract class MessageProcessor {
 
     private LinkedBlockingQueue<Message> messageQueue = new LinkedBlockingQueue<>();
