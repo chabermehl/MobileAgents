@@ -361,9 +361,11 @@ public class Node extends MessageProcessor implements Runnable {
         return null;
     }
 
-    public LinkedList<Node> getNeighborNames() {
-        LinkedList<Node> neighborNames = new LinkedList<>();
-        neighborNames.addAll(neighbors);
+    public LinkedList<String> getNeighborNames() {
+        LinkedList<String> neighborNames = new LinkedList<>();
+        for(Node node :  neighbors) {
+            neighborNames.add(node.getName());
+        }
         return neighborNames;
     }
 
