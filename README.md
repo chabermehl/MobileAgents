@@ -40,7 +40,8 @@ Button that starts the simulation placed on bottom of screen.
 ### Known Issues
 Agents sometimes don't surround the fire properly.
 Agent sometimes gets stuck and stops on first node encountered. 
-Only able to change config file manually in the source code. 
+Only able to change config file manually in the source code.
+Can only be ran once before having to close the window and restart the program.
 
 ### Features We Would Improve
 Loading multiple config files to be able to pick and chose without changing source
