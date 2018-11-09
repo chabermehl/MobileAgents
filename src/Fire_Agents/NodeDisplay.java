@@ -12,6 +12,9 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -25,7 +28,8 @@ public class NodeDisplay extends Application {
     private Stage window;
     private LinkedList<Node> nodes;
     private LinkedList<Edge> edges;
-    private LinkedList<String> graphList;
+    private LinkedList<Node> neighbors;
+    //private LinkedList<String> graphList;
     private InitializeGraph graph;
 
     private BorderPane graphGrid;
@@ -74,10 +78,12 @@ public class NodeDisplay extends Application {
         getGraphs.setToggleGroup(optionsGroup);
         graphSelector.getChildren().addAll(changeGraph, getGraphs, startNodes);
 
+        makeGraph();
+
         graphGrid = new BorderPane();
         graphGrid.setTop(graphGroup);
-        graphGrid.setCenter(graphLoaderButtons);
-        graphGrid.setBottom(graphSelector);
+        //graphGrid.setCenter(graphLoaderButtons);
+        //graphGrid.setBottom(graphSelector);
 
         Scene background = new Scene(graphGrid, 1000, 1000);
         window.setResizable(false);
@@ -85,21 +91,48 @@ public class NodeDisplay extends Application {
         window.show();
     }
 
-    private void makeGraph(String mapFile) {
-        graph.graphInitialization(mapFile);
+    private void makeGraph() {
+        nodes = graph.getNodes();
+        edges = graph.getEdges();
+        for(Node tempNode : nodes) {
+            Circle circle = new Circle(10);
+            circle.setCenterX((tempNode.getX()+10)*100);
+            circle.setCenterY((tempNode.getY()+10)*100);
+            System.out.println(tempNode.getX());
+            System.out.println(tempNode.getY());
+            if(tempNode.getName().equals("HomeBase")) {
+                System.out.println("BLUE");
+                circle.setFill(Color.BLUE);
+            }
+            else if(tempNode.getState().equals(Node.State.FIRE)) {
+                circle.setFill(Color.RED);
+                System.out.println("RED");
+            } else {
+                circle.setFill(Color.GREEN);
+                System.out.println("GREEN");
+            }
+            neighbors = tempNode.getNeighbors();
+            for(Node neighbor : neighbors) {
+                Line newEdge = new Line((tempNode.getX()+10)*100, (tempNode.getY()+10)*100, (neighbor.getX()+10)*100, (neighbor.getY()+10)*100);
+                observableList.add(newEdge);
+            }
+
+            observableList.add(circle);
+        }
+
     }
 
-    private void loadGraph(LinkedList<String> list) {
-        for(String buttonName : list) {
-            Button button = new Button(buttonName);
-            button.setId(buttonName);
-            button.setOnAction(event -> {
-                makeGraph("graphs/" + button.getId());
-            });
-            graphLoaderButtons.setPadding(new Insets(0, 10, 0, 10));
-            graphLoaderButtons.getChildren().add(button);
-        }
-    }
+//    private void loadGraph(LinkedList<String> list) {
+//        for(String buttonName : list) {
+//            Button button = new Button(buttonName);
+//            button.setId(buttonName);
+//            button.setOnAction(event -> {
+//                makeGraph("graphs/" + button.getId());
+//            });
+//            graphLoaderButtons.setPadding(new Insets(0, 10, 0, 10));
+//            graphLoaderButtons.getChildren().add(button);
+//        }
+//    }
 
     private void startNodeThreads() {
         Button startButton = new Button("Start Fire!");
