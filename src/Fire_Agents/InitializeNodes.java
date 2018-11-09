@@ -8,7 +8,6 @@ public class InitializeNodes {
     public int largestCol;
     public LinkedList<Node> nodes;
     public LinkedList<Edge> edges;
-    public boolean validGraph;
 
     /**
      * initializes all the nodes and edges for the gui
@@ -17,7 +16,6 @@ public class InitializeNodes {
      */
     //TODO: get largest column/row
     public void initializeGraph(String mapFile) {
-        validGraph = true;
         nodes = new LinkedList<>();
         edges = new LinkedList<>();
         largestCol = 0;
