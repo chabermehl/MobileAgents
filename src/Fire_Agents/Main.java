@@ -47,7 +47,7 @@ public class Main {
         InitializeGraph graph;
 
         graph = new InitializeGraph();
-        graph.graphInitialization("Fire_Agents/graphs/default");
+        graph.graphInitialization("default");
 
         nodes = graph.getNodes();
         edges = graph.getEdges();
@@ -55,12 +55,12 @@ public class Main {
         largestRow = graph.getMaxRow();
 
         for(Node tempNode : nodes) {
-            //System.out.println("Name of Node");
-            //System.out.println(tempNode.getName());
+            System.out.println("Name of Node");
+            System.out.println(tempNode.getName());
             neighbors = tempNode.getNeighbors();
-            //System.out.println("Starting Neighbors");
+            System.out.println("Starting Neighbors");
             for(Node tempNode2 : neighbors) {
-                //System.out.println(tempNode2.getName());
+                System.out.println(tempNode2.getName());
             }
         }
 

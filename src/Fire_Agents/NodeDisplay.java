@@ -46,11 +46,10 @@ public class NodeDisplay extends Application {
     }
 
     private void startScene() {
-        GraphLoader graphLoader = new GraphLoader();
+        //GraphLoader graphLoader = new GraphLoader();
         graph = new InitializeGraph();
-        graph.graphInitialization("graphs/default");
-        final File folder = new File(getClass().getClassLoader().getResource("graphs").getFile());
-        graphList = graphLoader.graphList(folder);
+        graph.graphInitialization("default");
+        //graphList = graphLoader.graphList("Fire_Agents/graphs");
 
         graphLoaderButtons = new FlowPane();
         graphLoaderButtons.setAlignment(Pos.CENTER);
@@ -59,10 +58,10 @@ public class NodeDisplay extends Application {
         graphSelector.setAlignment(Pos.CENTER);
 
         RadioButton getGraphs = new RadioButton("Get Graph Options");
-        getGraphs.setOnAction(event -> {
-            graphLoaderButtons.getChildren().clear();
-            loadGraph(graphList);
-        });
+//        getGraphs.setOnAction(event -> {
+//            graphLoaderButtons.getChildren().clear();
+//            loadGraph(graphList);
+//        });
 
         RadioButton startNodes = new RadioButton("Start Fire!");
         startNodes.setOnAction(event -> {
