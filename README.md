@@ -24,7 +24,7 @@ the jar file from the command line ("java -jar jarname")
 
 ## Project Assumptions
 Fire spreads evenly based on time. Agents are not bound to a time restraint for movement. 
-The config file will have a reasonalbe amount of nodes in it. Less than 50.
+The config file will have a reasonable amount of nodes in it. Less than 50.
 
 
 ## Jar file 
