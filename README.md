@@ -50,4 +50,5 @@ Check out the [documentation](../doc/doc.MD) file for that sweet, sweet info.
 ### Features We Would Improve
 - Loading multiple config files to be able to pick and chose without changing source
 code.
+- Be able to run multiple simulations without having to restart the program.
 - Better GUI/thread updating.
