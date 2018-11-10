@@ -37,9 +37,9 @@ Check out the [documentation](../doc/doc.MD) file for that sweet, sweet info.
 
 ## Status
 ### Implemented Features
-GUI displays spread of fire, movement of agents and death of nodes. 
-Node list with neighbors placed on right hand side.
-Button that starts the simulation placed on bottom of screen. 
+-GUI displays spread of fire, movement of agents and death of nodes. 
+-Node list with neighbors placed on right hand side.
+-Button that starts the simulation placed on bottom of screen. 
 
 ### Known Issues
 - Agents sometimes don't surround the fire properly.
@@ -48,6 +48,6 @@ Button that starts the simulation placed on bottom of screen.
 - Can only be ran once before having to close the window and restart the program.
 
 ### Features We Would Improve
-Loading multiple config files to be able to pick and chose without changing source
+-Loading multiple config files to be able to pick and chose without changing source
 code.
-Better GUI/thread updating.
+-Better GUI/thread updating.
